@@ -128,7 +128,7 @@ tokens_per_batch = 256
 train_loader = DataLoaderLite(tokenizer,data_files,B = batch_size, T = tokens_per_batch)
 
 # Function to generate predictions
-def generate_predictions(model, tokenizer, text, max_tokens):
+def generate_predictions(model, tokenizer, text, max_tokens=100, top_k=50):
     model.eval()
     with torch.no_grad():
         input_ids = tokenizer.encode(text).ids
@@ -138,16 +138,32 @@ def generate_predictions(model, tokenizer, text, max_tokens):
         for _ in range(max_tokens):
             outputs = model(generated_ids)
             next_token_logits = outputs[:, -1, :]  # Get logits for the last token
-            next_token_id = torch.argmax(next_token_logits, dim=-1)  # Greedy decoding
-            generated_ids = torch.cat([generated_ids, next_token_id.unsqueeze(-1)], dim=1)
+            probs = torch.nn.functional.softmax(next_token_logits, dim=-1)
+
+            if top_k is not None:
+                # Top-k sampling
+                top_k_probs, top_k_indices = torch.topk(probs, top_k, dim=-1)
+                next_token = top_k_indices.gather(
+                    dim=-1, index=torch.multinomial(top_k_probs, num_samples=1)
+                )
+            else:
+                # Greedy decoding
+                next_token = torch.argmax(probs, dim=-1, keepdim=True)
+
+            # Ensure next_token has the correct shape for concatenation
+            next_token = next_token.view(1, 1)  # (batch_size=1, sequence_length=1)
+
+            # Concatenate next_token with generated_ids
+            generated_ids = torch.cat([generated_ids, next_token], dim=1)
 
             # Stop if end-of-sequence token is generated
-            if next_token_id.item() == tokenizer.token_to_id("[SEP]"):
+            if next_token.item() == tokenizer.token_to_id("[SEP]"):
                 break
 
         generated_text = tokenizer.decode(generated_ids.squeeze().tolist())
     model.train()
     return generated_text
+
 
 
 config["vocab_size"] = len(tokenizer.get_vocab())
@@ -170,8 +186,8 @@ trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"Total trainable parameters: {trainable_params}")
 
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-2, weight_decay=0.01)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.5)
 
 # Define checkpoint path
 checkpoint_path = "/kaggle/working/checkpoint.pth"
