@@ -6,6 +6,9 @@ from tokenizers.models import WordPiece
 from tokenizers.trainers import WordPieceTrainer
 from tokenizers.pre_tokenizers import Whitespace
 import os
+from torchsummary import summary
+from tqdm import tqdm
+import time
 
 # Function to train a new tokenizer
 def train_tokenizer(data_files, vocab_size, save_path):
@@ -18,7 +21,11 @@ def train_tokenizer(data_files, vocab_size, save_path):
     tokenizer = Tokenizer(WordPiece())
     tokenizer.pre_tokenizer = Whitespace()
 
-    trainer = WordPieceTrainer(vocab_size=vocab_size, special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"])
+    trainer = WordPieceTrainer(
+    vocab_size=vocab_size,
+    special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"],
+    min_frequency=1  # Lower threshold to include more tokens
+    )
 
     tokenizer.train(data_files, trainer)
 
@@ -37,7 +44,7 @@ def save_checkpoint(model, optimizer, scheduler, current_batch, checkpoint_path)
         'current_batch': current_batch
     }
     torch.save(checkpoint, checkpoint_path)
-    print(f"Checkpoint saved at batch {current_batch} to {checkpoint_path}")
+    #print(f"Checkpoint saved at batch {current_batch} to {checkpoint_path}")
 
 # Function to load a checkpoint
 def load_checkpoint(checkpoint_path, model, optimizer, scheduler):
@@ -142,13 +149,29 @@ def generate_predictions(model, tokenizer, text, max_tokens):
     model.train()
     return generated_text
 
+
+config["vocab_size"] = len(tokenizer.get_vocab())
+print(f"New Vocab Size is: {config['vocab_size']}")
 # Initialize model, optimizer, and scheduler
 model = TransformerModel(config)
 model.to(device)
 
+def initialize_weights(m):
+    if isinstance(m, torch.nn.Linear) or isinstance(m, torch.nn.Embedding):
+        torch.nn.init.xavier_uniform_(m.weight)
+
+model.apply(initialize_weights)
+
+# Print the model architecture
+print(model)
+
+# Calculate and print the total number of trainable parameters
+trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+print(f"Total trainable parameters: {trainable_params}")
+
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=0.001)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1000, gamma=0.95)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.5)
 
 # Define checkpoint path
 checkpoint_path = "/kaggle/working/checkpoint.pth"
@@ -159,38 +182,48 @@ start_batch = load_checkpoint(checkpoint_path, model, optimizer, scheduler)
 # Fixed text for predictions
 fixed_text = "He that will give good words to thee will flatter"
 
-# Training loop
-for i in range(start_batch, 5000):
-    x, y = train_loader.next_batch()
-    x, y = x.to(device), y.to(device)
-    pred = model(x)
+# Training loop with tqdm progress bar
+total_batches = 5000
+checkpoint_interval = len(train_loader.data) // (batch_size * tokens_per_batch)
 
-    # Reshape predictions and targets for loss computation
-    pred = pred.view(-1, pred.size(-1))  # Flatten predictions
-    y = y.view(-1)  # Flatten targets
+for i in range(start_batch, total_batches, checkpoint_interval):
+    loss_list = []
+    start_time = time.time()
+    with tqdm(total=checkpoint_interval, desc=f"Training Batches {i}-{i+checkpoint_interval-1}", unit="batch") as pbar:
+        for batch_idx in range(checkpoint_interval):
+            global_batch = i + batch_idx
+            if global_batch >= total_batches:
+                break
 
-    # Compute loss
-    loss = criterion(pred, y)
+            x, y = train_loader.next_batch()
+            x, y = x.to(device), y.to(device)
+            pred = model(x)
 
-    # Backward pass and optimization
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
+            # Reshape predictions and targets for loss computation
+            pred = pred.view(-1, pred.size(-1))  # Flatten predictions
+            y = y.view(-1)  # Flatten targets
+
+            # Compute loss
+            loss = criterion(pred, y)
+
+            # Backward pass and optimization
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            # Update progress bar with current loss
+            pbar.set_postfix(loss=loss.item())
+            pbar.update(1)
+            loss_list.append(loss.item())
+
+            # Generate text and save checkpoint at the last batch of the interval
+            if (batch_idx + 1) == checkpoint_interval or global_batch == total_batches - 1:
+                generated_text = generate_predictions(model, tokenizer, fixed_text, max_tokens=100)
+                print(f"\nGenerated text at batch {global_batch}: {generated_text}")
+                save_checkpoint(model, optimizer, scheduler, global_batch, checkpoint_path)
 
     # Scheduler step
     scheduler.step()
-
-    # Print progress
-    print(f"Batch {i}: Loss = {loss.item()}")
-
-    # Save checkpoint every 100 batches
-    if i % 100 == 0:
-        save_checkpoint(model, optimizer, scheduler, i, checkpoint_path)
-
-    # Generate predictions every 500 batches
-    if i % 10 == 0:
-        generated_text = generate_predictions(model, tokenizer, fixed_text, max_tokens=100)
-        print(f"Generated text at batch {i}: {generated_text}")
-
-# Save final checkpoint
-save_checkpoint(model, optimizer, scheduler, 5000, checkpoint_path)
+    elapsed_time = time.time() - start_time
+    epoch_loss = sum(loss_list) / len(loss_list)
+    print(f"Loss: {epoch_loss:.4f}, Time: {elapsed_time:.2f}s")
