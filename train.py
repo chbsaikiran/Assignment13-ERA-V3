@@ -186,8 +186,8 @@ trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 print(f"Total trainable parameters: {trainable_params}")
 
 criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-2, weight_decay=0.01)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=3, gamma=0.5)
+optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.65)
 
 # Define checkpoint path
 checkpoint_path = "/kaggle/working/checkpoint.pth"
