@@ -24,406 +24,429 @@ Total trainable parameters: 105384624
 </pre>
 No checkpoint found at /kaggle/working/checkpoint.pth, starting fresh training.
 <pre>
-Training Batches 0-62: 100%|██████████| 63/63 [00:33<00:00,  1.87batch/s, loss=6.87]
-
-Generated text at batch 62: He that will give good words to thee will flatter : , me ? with . what , , he , she to my he is ' And that good will my , ! know - the me : you as , , , ' , not I for his have not as my : , , the And ' I be , : : to have , the , is , to ? as the for , , is , what , , ! I . ' I , by . . is : you , ? ? the , And of have . : to and by ,
-Training Batches 0-62: 100%|██████████| 63/63 [00:37<00:00,  1.67batch/s, loss=6.87]
-Epoch Loss: 7.2082, Time: 37.68s
-Training Batches 63-125: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.81]
-
-Generated text at batch 125: He that will give good words to thee will flatter me a your , : I , have have so , I a , a by have not : And ; my is , : him you ! is : ; I ' be him to with he I , . , ? a , , but ' , ' and , : she - I she , this . I . , me you my not , , of and , are To : him with ; what is , she . is in good , be sir my to : , , to that ' , . :
-Training Batches 63-125: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.81]
-Epoch Loss: 6.5409, Time: 39.62s
-Training Batches 126-188: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.8] 
-
-Generated text at batch 188: He that will give good words to thee will flatter you not of . with you have no . And not : , it not s no the , have the you ; ; your d be will , ' his him the , as , it of she : , but to so , ? not I his , I ; a I of him ? , ? , you . . the , ' , it ; , : she have as of ? I I , not , ? , his , , me : , ' : : , I good ! : , he not
-Training Batches 126-188: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.8]
-Epoch Loss: 6.5201, Time: 39.62s
-Training Batches 189-251: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.78]
-
-Generated text at batch 251: He that will give good words to thee will flatter a this I , ; , do I : : . his and it you , . as , is you I for is : ; a a : , : it , : you , me him you , for , : a no , , a , And her . , his him s ' your in I , . for , . the is her to sir of your my to of . the , , , my ' , : not a for : to ' of ? he be a ? , , and ,
-Training Batches 189-251: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.78]
-Epoch Loss: 6.5118, Time: 39.72s
-Training Batches 252-314: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.76]
-
-Generated text at batch 314: He that will give good words to thee will flatter : it , is : . I the but . , ; by And so to I your him I and . to it I , me my my , . ? ' , her . your of , I will so , ; the : I , with so you , a to not to : : , , , , a . , you you . have - . do what , . s of , not ' this , ; is you , ' ' so , my : . : . : a the it my
-Training Batches 252-314: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.76]
-Epoch Loss: 6.5066, Time: 39.74s
-Training Batches 315-377: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.73]
-
-Generated text at batch 377: He that will give good words to thee will flatter it his of as , with is the to , : I . a with , , , you : be ? the him me : : , to And , is the , , s be is me thou ' my ? , so be ; ! : no , I that him I , you d I me , his the s thy d your : ? , is to , for you that it be to , that a , ; ! ll to me , for ? s . : but , I not . :
-Training Batches 315-377: 100%|██████████| 63/63 [00:39<00:00,  1.58batch/s, loss=6.73]
-Epoch Loss: 6.4874, Time: 39.77s
-Training Batches 378-440: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.73]
-
-Generated text at batch 440: He that will give good words to thee will flatter To : , ; , s , : your he I not your my me , the . : ; ! it and your I . to , , ' ' : , I , , not , ; in , it he this , ; do by : , : . ' you my : thou ! And , is . a , shall for to and , this it , : : ' to you for and , , I her the , , , , to : , of . . of . , ' your by
-Training Batches 378-440: 100%|██████████| 63/63 [00:39<00:00,  1.58batch/s, loss=6.73]
-Epoch Loss: 6.4802, Time: 39.81s
-Training Batches 441-503: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=6.72]
-
-Generated text at batch 503: He that will give good words to thee will flatter d of ll that you and To ! so , ; . of for it : and , thy , a my , to , is him to s d . him with : me not do you of you . and as this for ! he : you , you , I : to to for ; : so thou : for , , you - of . it thou to her , you your s - , . , have : : to : , . , , in ! the to is the you you a :
-Training Batches 441-503: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.72]
-Epoch Loss: 6.4786, Time: 39.72s
-Training Batches 504-566: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.72]
-
-Generated text at batch 566: He that will give good words to thee will flatter : , , , by , : and of And your shall . I s , this if ! ll I to : that d ' : : I be to with To I . a d me ; . . ' And me : his I your do , , as : : , for ? I ' , . in a it this , thy : , you be : , , him ' , s : , is , ! it have a the , : for . with . the your and ' I - it
-Training Batches 504-566: 100%|██████████| 63/63 [00:39<00:00,  1.58batch/s, loss=6.72]
-Epoch Loss: 6.4775, Time: 39.79s
-Training Batches 567-629: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.72]
-
-Generated text at batch 629: He that will give good words to thee will flatter ' as , be no it . , ! , I . , . : with be . that the is ! , this ! - you this not by , , with , and thou not : ! , I . that and him , , not ' I ll : not you : , . not , a of it of to : thou if , : thy : shall the it you , me . ' is , if you : . And his d it And for . I me , me . To I .
-Training Batches 567-629: 100%|██████████| 63/63 [00:39<00:00,  1.58batch/s, loss=6.72]
-Epoch Loss: 6.4766, Time: 39.77s
-Training Batches 630-692: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 692: He that will give good words to thee will flatter the ; , the have of with him and me And with s all it be in : ' : I : ' so I with thou my for . : : the ; ? have him you . my be me it : with , d And his : his : : as with : thee : you of , , not all you s s I in his my : but his And , ' and of I ' : : be ; I ! . , not , ' ' be you this and To be the
-Training Batches 630-692: 100%|██████████| 63/63 [00:39<00:00,  1.58batch/s, loss=6.69]
-Epoch Loss: 6.4660, Time: 39.83s
-Training Batches 693-755: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 755: He that will give good words to thee will flatter , that a s : with to ! is her to , s ; d : him you it you for . , : the that of ! : : by of . be have my , of of of . ? and . : , . . a ' And : the that my me : as ' : . . , the by : as that : me ; but . to . The ! to him . ! but ; the no you it you . I d not : . have you as you d ,
-Training Batches 693-755: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.69]
-Epoch Loss: 6.4638, Time: 39.35s
-Training Batches 756-818: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 818: He that will give good words to thee will flatter . : , have . , , shall , a not , thou : , ? me , thee thou not ! s a to we : , will , and , do d to for to And is to . I ; of And d , , not , : a , , I we . and , , : my do me . And you , have as . ; so . this , shall my for have of , the you , I . , . not , the not and , : not have : :
-Training Batches 756-818: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4635, Time: 39.21s
-Training Batches 819-881: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 881: He that will give good words to thee will flatter , , And this ' And for , not do : by ; her for ' ? have , ' s a and we for as s : a s , the with the : I in will him ; s ? , ' ; . it - ! my ' his and , the : a , - and s ; : , , ? , And . and that thy not . be my be The . the not to to not all , be , , , To ' . all to in to for , you
-Training Batches 819-881: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4633, Time: 39.22s
-Training Batches 882-944: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 944: He that will give good words to thee will flatter s thy , : and have ' have of The , ' ! the you . as that be , you of ? do that of , of with , : the - ' ? you to . and ' : be . To you in the him and the with , have . and : in be , . you as that : d to . a , do . that thou to s ' a not thee we your : , ' , ; of ? , ? : the thy : and , the , my be
-Training Batches 882-944: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4631, Time: 39.26s
-Training Batches 945-1007: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 1007: He that will give good words to thee will flatter that this , but ; . the ' : ; I the : the , d ! in do the : s . , . it you , the so of : , , ' my I the I of his , is of the ; thee - you ' . : : of , he the I The , but your so and as : ! thou : you ' I so , : but you I ! no of ' is and of . ; . ' is the I : to . his be we . And
-Training Batches 945-1007: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4544, Time: 39.26s
-Training Batches 1008-1070: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 1070: He that will give good words to thee will flatter do to so as to . ; your ' to . my ? and to to , , , to , me be thy ; her I me , as . I ! not ' , ' . , to ' me : , him his have : , thy ' . I your in of , s and , , ' : . by not he I the , I The ' I . ? . ' . I that to is as of a and but , for it it , all s : with not d .
-Training Batches 1008-1070: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.69]
-Epoch Loss: 6.4537, Time: 39.30s
-Training Batches 1071-1133: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 1133: He that will give good words to thee will flatter a , , the him this . to you my shall , my the , her I for his a , to , to , of a with my ? - and I have he this in ' that the I , . him that is a me do , his I , And is s that a , that ' ! is it , : , ! your you so with and : the . shall to your ? me : : ' : all And to ' that , , by , the . of : To him
-Training Batches 1071-1133: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4535, Time: 39.23s
-Training Batches 1134-1196: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 1196: He that will give good words to thee will flatter ? of ' for ' you ; that not - : this as , , we , thy : be , s the , : his and in : so ; ' s with but no his d , ' thou thou . me it my by in to so . ' , in in , he , me you do , ! , is , ! the to : d : thee I , ? be , with be for : this , ; , . shall is , : as ! not , : of , : ;
-Training Batches 1134-1196: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.69]
-Epoch Loss: 6.4534, Time: 39.22s
-Training Batches 1197-1259: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.69]
-
-Generated text at batch 1259: He that will give good words to thee will flatter is : ' ' thou of , . , this he ' with : ' I , : . - : I no with his , : , will , me the . the have I not a him of the ; - to . : . a . be , of to ' I , , , , this , : as , have and To for . shall . ' your d to d that you but ' And be ; a him I : my : as I not that that , your thy to , ,
-Training Batches 1197-1259: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.69]
-Epoch Loss: 6.4533, Time: 39.28s
-Training Batches 1260-1322: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.68]
-
-Generated text at batch 1322: He that will give good words to thee will flatter and . be And , - ! my you , his as ' thee you and as he To to ! thy you my , his a : thou me s to s ? : I I his And thee : ; , d The I of ; , but ; : , me your he ' with ' to my are : the a ' And for have him ' : . for him , to to to to : and , the to the ; : you : ' to , , , the her , , And
-Training Batches 1260-1322: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.68]
-Epoch Loss: 6.4469, Time: 39.25s
-Training Batches 1323-1385: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.68]
-
-Generated text at batch 1385: He that will give good words to thee will flatter of ! for : ' ' I ; thee I you , : , with , : me it the and . the : : we , me . ' in ? I we the , of that : : the ' : and will not the to ' this a ' not , , a the the : . so this her is I be , we thee , : : that it : s ! , . : all d all I you , you me , of And ' , d and it all that I you
-Training Batches 1323-1385: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.68]
-Epoch Loss: 6.4465, Time: 39.18s
-Training Batches 1386-1448: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.68]
-
-Generated text at batch 1448: He that will give good words to thee will flatter I your , ? he of , , of the : ' this to the my a that ' and ? ; the will . ' your ' I s but as are I d with and for is to in my to , be ' . to ; , I , is To , the , : to for by , , is as ? ; me ' , ; . : the you , . . ' ' I and , ? ! you that to I ' : that I , - ; of , of .
-Training Batches 1386-1448: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.68]
-Epoch Loss: 6.4465, Time: 39.17s
-Training Batches 1449-1511: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.68]
-
-Generated text at batch 1511: He that will give good words to thee will flatter with ' his him ! : . it of and I ' the And , you : , in to ' , to not to I ' a you of and , is , in : ; this , he - this : to . . but the : will : , ; ? , , shall the , , . me thy : : the , be ' . so this thou And - - And I , ' not this I : , ? not d but ' : : is . , - do I by ,
-Training Batches 1449-1511: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.68]
-Epoch Loss: 6.4465, Time: 39.27s
-Training Batches 1512-1574: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.68]
-
-Generated text at batch 1574: He that will give good words to thee will flatter the is this To a . . : ? and to : . all : of you have that the is , , the to the be in ! . to , my to to I I thou for ? I , : ' . ? ' be I are you I , , ' I is ' be . - and ? , , and . - d ' I and ! this this do your you . have : : s is be to to : with , to he of her , ? I : as his
-Training Batches 1512-1574: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.68]
-Epoch Loss: 6.4465, Time: 39.33s
-Training Batches 1575-1637: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1637: He that will give good words to thee will flatter so the is , : ; , ! , you . the his to shall it I , ; in . To . in by ' and , ! me I And . not , , that . to with I ' thee as ' and and , ; d that do me thee ' by it of : : the not that : , , , , ; is have : a . . ' her not is : And : - that , ; and : of ; ! a : To , ? have . , '
-Training Batches 1575-1637: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4425, Time: 39.22s
-Training Batches 1638-1700: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1700: He that will give good words to thee will flatter , in : is : And and to ; ' . my and . ! the To I a , d ' , a . d he for with ' to of by , this , I it : , is : that , for my I ; the ; are the as , , . thy , her ' of me , a this with it thee my as , be your with to . ' ' . . to I I the of to I And in . me you : , - your , . be .
-Training Batches 1638-1700: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4424, Time: 39.26s
-Training Batches 1701-1763: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1763: He that will give good words to thee will flatter - , : the so my my the . the in and , I I a of ; my thy , I be with all shall ' have The of to . , by the , shall , , ' s ' and the s , in to as her my : so as ' will we thou ; ' , And be and . . : with this for not : . for : , , . ; : ' , of to ; I ! . have not not you your with you s it , : .
-Training Batches 1701-1763: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4423, Time: 39.22s
-Training Batches 1764-1826: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1826: He that will give good words to thee will flatter I you I but , you ' . in but to , thou : the , : but shall that ' you of you the of in and - , . ' by , my and : this I of ' my this for , is it you my The for : ! , , as will ! in I for a in : . do and , is , , is thee not - of that . the do in , , , and . you a , , I d the - I , , , : the
-Training Batches 1764-1826: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4423, Time: 39.32s
-Training Batches 1827-1889: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1889: He that will give good words to thee will flatter , his . , my , : his your I . have ! my him . , of I my ; your s I is I d - , to : : ! To will me thy . the : , is my . , your of to you with ; shall I : my : : I not as her have my to not thou , : , not , : : . her my ' : . to of my . for so ? s of the , , - for that it ; that a . '
-Training Batches 1827-1889: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4423, Time: 39.26s
-Training Batches 1890-1952: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 1952: He that will give good words to thee will flatter : , ' . and thou . ' , ' ' so : s , my he not and ' my , . : thy in And , , ? , of , , you : the To , ! a the ; but , that the his . this s that , is ' ' to , of , with , me and I thee that a his him And to the , thou - . : , have it , , : with he I : with of is thee d to to not him so : d
-Training Batches 1890-1952: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4398, Time: 39.24s
-Training Batches 1953-2015: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2015: He that will give good words to thee will flatter ; by The ' a he , , a s . your . the with ' : in be to the thou the : . the but , ? ' the To s . I a ; , not : , d but as a it I : him : ! , the : and me her The : by , : The ! will him : by ! and is ' and s : , ; . do your s : , ? and I a : he ' and ? ' ' , to And he . ,
-Training Batches 1953-2015: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4397, Time: 39.24s
-Training Batches 2016-2078: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2078: He that will give good words to thee will flatter , s , : in : , and me ' ? To the , , And and him as , is your are do of will of . in you s d I his all , , I you to : . have the my you have . ? , ? his by have to her . : her with , I I his s , And the your , his is and ; ' will , it to ' ; . that : . not . this for , him of , the the in with to , he
-Training Batches 2016-2078: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4397, Time: 39.22s
-Training Batches 2079-2141: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2141: He that will give good words to thee will flatter not , : and And ' with that : : but , . ' , , with I , the and in you the , , is my , we : : , : , with And I to of thou do to : of and your is be : the to . . And me this him his ! of thy . I , And are the thee his , s of to her will him , s s To ' is ; I and : the is but , ? . ' , . To I me thy
-Training Batches 2079-2141: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4396, Time: 39.23s
-Training Batches 2142-2204: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2204: He that will give good words to thee will flatter and ; be , he s you : ; and shall , my . , so , ' s that . ' s ' for I that you ? have this but but , ' we . not : . , by in of to the with : will of it : thy and my the and this as : he . d . ; all his that ' thou to : but ; this And all me he : ' . as ' , ? be s , , not thou ' to do not . The ? shall
-Training Batches 2142-2204: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4396, Time: 39.20s
-Training Batches 2205-2267: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2267: He that will give good words to thee will flatter my her do ; s in , ' , to : to ? to your but ' it your and ' thy , . the ; but shall . ! ' by ' , The the . , the : , , : the you not her ' of , my not . ; me be all and thy ; in , . - ; , a be ' a my , , , ' s - his . , , of and have ' thou : of my . not a with of I with , s and is
-Training Batches 2205-2267: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4379, Time: 39.27s
-Training Batches 2268-2330: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2330: He that will give good words to thee will flatter your with : you to I the ' her all : a it And , . The ' . , , I : , my , as to : . not And , ' : , and his d it To of ' he thy this s with . s , : : . him d so . this ' and are will of ; : the : to , : my And ! a ' to the and he the , a the ' , the and in , . will be : my it I and a ,
-Training Batches 2268-2330: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4378, Time: 39.21s
-Training Batches 2331-2393: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2393: He that will give good words to thee will flatter thou for not my that him ! not it ; the he ! he of : , my , shall ; it ' in . , of , , ' to . of : of ? : thou your of ! but . I ; : . his he ? : : . . you ? : : . ' : . : are ' in ' the this , And , . And ' , , of and to s I a and : - , s , ? for ' . I my , and I I my
-Training Batches 2331-2393: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4378, Time: 39.25s
-Training Batches 2394-2456: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2456: He that will give good words to thee will flatter : his . I I ? to : , , this . a , I ; , , to in ' I ? . that the and me the , of The ; . for , the to : a : my that have to ; d we a : ? . : of the ; shall in the as , , , be . that ' : ' I I , , to in . , to the , this you . . , of you me with be . with , all be in : the s you
-Training Batches 2394-2456: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4378, Time: 39.22s
-Training Batches 2457-2519: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2519: He that will give good words to thee will flatter ; , : I for s , thee I a with To , , thou the to this , and ! this his I to and are to is the d , and thou in my . have me for that and the d shall me shall . , so . ? . : and ' . a . : he of the . : to you , a : by have , And as I : To d his as the : To : ; we your and ' him . , thou your in that . thy ,
-Training Batches 2457-2519: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4378, Time: 39.21s
-Training Batches 2520-2582: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2582: He that will give good words to thee will flatter you , : he the , ' is . to for have and the be to to , that , so , a ' I : ' : ! I the but all not your to that , the your of shall his him , : ' all by your to . the , me : ' , , the ! , ' . d will , The ? ? And , , . you I to I . will : ! the I have : ' that in to ! his . , and ' and s , the
-Training Batches 2520-2582: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4366, Time: 39.19s
-Training Batches 2583-2645: 100%|██████████| 63/63 [00:34<00:00,  1.86batch/s, loss=6.67]
-
-Generated text at batch 2645: He that will give good words to thee will flatter be to your as and s is as , ' and thee : my are thy The : : your have : my ! me , in I ' And ' , me ! , is ; : , ; ! the . thy I we , him of . : is I the that the ' , ; I ? in To is your ' it , ; you s will : the , , that , ! : that and of the will have , , , is his ; , to I . thee and to have
-Training Batches 2583-2645: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4365, Time: 39.30s
-Training Batches 2646-2708: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2708: He that will give good words to thee will flatter be ' you the but you me have your , you To thee ; me : s , I , you ; me is a is by and you , , , I of for my are : with ? . the be , ! my I , . you to ' me , the d a , . that , - you The : ' : as I ' : . : The have I And To shall are . : . of ' , ? . the your And , thou , , and And And my a
-Training Batches 2646-2708: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4365, Time: 39.19s
-Training Batches 2709-2771: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2771: He that will give good words to thee will flatter in a to his in , not I the thou it , the this ? I To a , ' ' ' . , : , ' in s of will , me , s of and , ! . that I him to a it , that ; the the this I . The that but your . . ' , of I . a the her this and ' , as to for , in ! the is a is , , , ' to , ; ; ' : s I And , To so you ,
-Training Batches 2709-2771: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4365, Time: 39.15s
-Training Batches 2772-2834: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2834: He that will give good words to thee will flatter . with . as thou ' ; me I , , be . him , s do : that ' for . have , : : he : . do , , be , ; , ; , , of , it to I the we I , And , ' the him him s : with : , not : ; , my thee him ' , ? : for : ; - : , : , I thy ; your my your , ' and . , this this I and so the will the of to :
-Training Batches 2772-2834: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4365, Time: 39.19s
-Training Batches 2835-2897: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2897: He that will give good words to thee will flatter . . . , : . : my And your , and . the , you And are s , , ! . my to ' do s so ' . , the that me , ! a not ' , : . my that a I ! . : , by for by ' - . shall and my the to he , s is that , s , in my not and , a but the - : is ' ; The ? I , , you . you it , ' with shall ' , ' :
-Training Batches 2835-2897: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4356, Time: 39.31s
-Training Batches 2898-2960: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 2960: He that will give good words to thee will flatter : we ? , we your ' the ? : I the . : you the is , him : ? d me , , . , and as her we . ' , ; shall , . , . have him , , in , he me I to - the s I ; ; a . will , not to , it a s thou this ' , in , the . ? - . , my , I the , I my my To the for your ' in to , ? his , , it of
-Training Batches 2898-2960: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4356, Time: 39.15s
-Training Batches 2961-3023: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3023: He that will give good words to thee will flatter I you ? : ! ? that not , : ; a not thy her do to : with of , me of my that , he are of s ! a and , s in this , . : , the , , , ? ; thee : , . : . but thee I my and so . my : : ! : , of all the to . is your ' the , I you ' of of and my with and , be my me ' to ' ! , I , : for and ,
-Training Batches 2961-3023: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4356, Time: 39.17s
-Training Batches 3024-3086: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3086: He that will give good words to thee will flatter . your and - d and ' ! with to thou To you : . I , d as he to and ' , to To : , d , that my ; and : my be : his . , ; ; . to , to And ! with me . ' , ' ' in ' a ! , have ' my do , a a as The . , to this , it , I , my : his ; you as do I to ; and me ? you for , be to to be :
-Training Batches 3024-3086: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4356, Time: 39.17s
-Training Batches 3087-3149: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3149: He that will give good words to thee will flatter ' , ' be ; ! ; to his And . all , - , . you ? the ' , ' . ' I : ? have the , , he . but my to ' a her the ' for and I , her The I ' I , , not : , the of , is ' : , : so ! : thee to ? in : , ' , is . : : a be : all , , to and , ? ' , a : , . do ' thy , is he
-Training Batches 3087-3149: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4356, Time: 39.27s
-Training Batches 3150-3212: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3212: He that will give good words to thee will flatter . , I in , ; not . have but . , , a , ! I be d but I you your my ! : . to the To not all me And , ' I your thee . of s a of the ! , he do , , in your he a , ? but , not that ' And to to d ; : s I all your in have be it for my , : my me The : : . is ' me be is , the that d I s ! I .
-Training Batches 3150-3212: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4350, Time: 39.16s
-Training Batches 3213-3275: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3275: He that will give good words to thee will flatter in me so a all ! ; thy have and . : I d , , have ' ! the , : your is that : as of , , his the . , : : I , it , , : : , are me my by that all so we is , . as him to thee and . : that thou with to . my ? my it be ! ; of the - he my you . the in , shall the as , And thy we the with the : his a ? have your
-Training Batches 3213-3275: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4350, Time: 39.22s
-Training Batches 3276-3338: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3338: He that will give good words to thee will flatter ' my ' s ? ' , And ? he so this in with . The as , ; I and are ' . : To ; , , you the ! And : so the the : , ' The . , and your , with ! To a your of , . ? I of to thee of be s I that , of me ' of you of . to is my the I ? - , be and are I - ' do I be : with is ! ! : is be , and d
-Training Batches 3276-3338: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4350, Time: 39.16s
-Training Batches 3339-3401: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3401: He that will give good words to thee will flatter , with you : . is for . to a And not of by be ' he to you , his : ; thy I for and her ' ! of me this his you me s thou it his , , and : be a ; ' a you a all d . he and have , of that ' shall your for , , and for ? so , ; : . s I s : a you you that ? to and to I and thee , To . ; to her . of . in the
-Training Batches 3339-3401: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4350, Time: 39.31s
-Training Batches 3402-3464: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3464: He that will give good words to thee will flatter : will ; a are me I ! : ! me thy the you , my have : is I and : as to the of is . d a I he ? ' I in . be : as not that to ' and thou so to : him by is we in not for he ; And it I : : : : ' To to to with s ' , ! as is it - , : thee I . ; : to ' he , a a I , be the , . your ' the
-Training Batches 3402-3464: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4350, Time: 39.25s
-Training Batches 3465-3527: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3527: He that will give good words to thee will flatter ' ? , , you the have . ' and and have : ; . her a ' of we your ' a s ? , not that , . : . to , me ' , I thee , my ? , I . thee to and , To so be : a ; in s : d , , to s ! the you The is the . and And my me that thou be the in d I ; , I s , not all And the and . I shall , I . . thy this
-Training Batches 3465-3527: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4346, Time: 39.23s
-Training Batches 3528-3590: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3590: He that will give good words to thee will flatter s : ! : - have , , her this will by . me : The : is is the and is : you that , ; I for , , I And his and . , d to To you , and are I me the a to her not I for my : and have , this thou : but ? your a a a my you , but , you with it he will : the . you : , with the and of and ! his it . ; , the ? : that the !
-Training Batches 3528-3590: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4346, Time: 39.26s
-Training Batches 3591-3653: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3653: He that will give good words to thee will flatter , I , , I that ' the : : thy thee , are : his with that me s of you to , , , in : with will all ; , And : . to , ? you me s , the . will is me to the to , in the : . by will to my , I , to , , and ' it ; , in you him And , , that ! but ' thy I : be ! this : d ? I s it d . to , your , .
-Training Batches 3591-3653: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4346, Time: 39.27s
-Training Batches 3654-3716: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3716: He that will give good words to thee will flatter I shall thee his your as have the : is you , : . : , the the my is this : as , , : : you , : ' - my thou And of thou , , , And . : all the my ; ' the in To with will you . him : , : s the , , the to shall you be - me : : , of my the , my ! the his , it we be for , ; , I To and I , thou The ; , my I
-Training Batches 3654-3716: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4346, Time: 39.24s
-Training Batches 3717-3779: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3779: He that will give good words to thee will flatter have : , ! , . with of : , , I with with : your and thou , to be , , I this my , and , ; . thou s , I the , we and : , I the , the him all the ; all And , of by my her And d you not ? will ; . ? , is ? my s , thou . : to ! be this the so in so of your will , he ' ' ? : with this , not this : . , :
-Training Batches 3717-3779: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4346, Time: 39.17s
-Training Batches 3780-3842: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3842: He that will give good words to thee will flatter : be and : for ' And I . and I his , to be to ; I : of ; thou your a I ! , the s the . the not not will ' ? . the to we . and in . the , and : : : ; thee ' for thy . ; be are your and shall not not is that it by : , - : the me , ! , ; ' my , thou he , : but . thy to him my , I ? - : , ? of
-Training Batches 3780-3842: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4343, Time: 39.24s
-Training Batches 3843-3905: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3905: He that will give good words to thee will flatter the that he ' I ' this , . , I thy her for , him And , , to , my the thou , is , . you with the , , that . with ; your you ? . my ' . that . ? his his ' this ! will ' the , to that but ' ; , the the in , my and , : , all , , a of be the . he : . by , of , : ' for s thy it you . : the your the a your
-Training Batches 3843-3905: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4343, Time: 39.19s
-Training Batches 3906-3968: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 3968: He that will give good words to thee will flatter : ' he ; the And ; : : this . and we as , : . To a d , of , the : his but : ' but this are and the , , . . of . my , but as him not with ? have not . ' but , of s . not ; to you that your by ; a thy , : d , I is with ! the , with . in d so my I , you : , with , . for with he the that ; ; , a
-Training Batches 3906-3968: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4343, Time: 39.28s
-Training Batches 3969-4031: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4031: He that will give good words to thee will flatter this , And him but ! your , : : And The thou thy , : but : your have with shall , thou ? as . the him , The . to to : not my I : be , , and to have be . . the . , the of ' of - he the : The he . , but ? . . d to his to , s have my I his for of ; : a a s that of ; the of d the : as have with be . I ? but
-Training Batches 3969-4031: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4343, Time: 39.19s
-Training Batches 4032-4094: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4094: He that will give good words to thee will flatter do ; in , , thy , ' by , in your , ; , is ; : , , not the , . have thee will s : that : , , , ' but ' , , : will , it I , ' : , that for , The . in will to And of , be ' for with in and , this me me , , And s : ? And to : do my for ; I be , : him : ! , his , : with him , , the all '
-Training Batches 4032-4094: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4343, Time: 39.22s
-Training Batches 4095-4157: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4157: He that will give good words to thee will flatter his not I , , ; to thee by . - ! all it , thy I ; of all and have I of ' , To , , you , be all , in this And ; a , the thy thou him , , . , he , To all my have , all but . ' , of thee , ' for of with , you . her to : To of him and . in not ; , : of , the , And I : : by not , . , : he the his
-Training Batches 4095-4157: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4342, Time: 39.24s
-Training Batches 4158-4220: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4220: He that will give good words to thee will flatter : ' ' I my , are , are the . , I The : , thou her , thee And ? , . . your the I , , and in of his that thy but , of the it do , I : . my , , to that , he : , we : of And you this I we , ' , . thou with : are ' the , of : to And . a you a d so to to , he . so : your . shall a a I , his !
-Training Batches 4158-4220: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4342, Time: 39.31s
-Training Batches 4221-4283: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4283: He that will give good words to thee will flatter shall are will he be ? , is have , and , And shall have in the , , to your this of : ? thee : be , not me and ; that but but in : will . to me ? , to , shall ; in that ; to : your to do , by The in and the ' my s be . I , to you and his for and , , : : as , , , you in thou the this s not , ; . will my not you ; me .
-Training Batches 4221-4283: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4342, Time: 39.20s
-Training Batches 4284-4346: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4346: He that will give good words to thee will flatter ; I of . ' ' the with are the him this d , , , s . the thy I his all it my : have : it in . : , by ? I will my d , the will it of in . , : you ; will her ! , with : I and the ; in thou : I , is is a to shall . ' And ; her in is is . d ! to . I . not ' to : will I he do : the I , shall be '
-Training Batches 4284-4346: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4342, Time: 39.25s
-Training Batches 4347-4409: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4409: He that will give good words to thee will flatter of that , : ' my with I with have , not he you and so my . , it , you : ' he by ? to , : of that ? I : . a thy you and not . ' , ' his as , , that and : , ! the I : me d . , - to the . the ' to thee , , have , . my a , so , will ! . : : I , d have this in it ' the d ? d . : : as
-Training Batches 4347-4409: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4342, Time: 39.23s
-Training Batches 4410-4472: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4472: He that will give good words to thee will flatter ? ! is ? : : I . a your , the with And thou not s a me : , , we the . the , , and her that , your I but ' ? , , , and : is his , of , the ' of d : and to him he to that the ? d the , , d : ' ' : , but . thy I do with that of have s : To , , a of . : , ; we be will s : all - a my I
-Training Batches 4410-4472: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.29s
-Training Batches 4473-4535: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4535: He that will give good words to thee will flatter , but ' . , but ! it to , d , have the with And ' his , . : , of to , the . , The ? that the s I but The . ; my , thy of , ' of , , but me the , it you have , he so ! his And , , To s to of and . have a , of for ; to in : And , : : my I , in - this I to ' ; he : d s - the , my thee
-Training Batches 4473-4535: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.19s
-Training Batches 4536-4598: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4598: He that will give good words to thee will flatter s , . me he have in and in not I And , To , : , and the To , I with . my ' this d the , by . his , : to of with he , ' I to have ! ? I . you , shall we I , : but the , : . you all by of . , his , , you . my : ' , be the thee s thy shall not , : not To I thy : To you of thee To and of ! of it as
-Training Batches 4536-4598: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.20s
-Training Batches 4599-4661: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4661: He that will give good words to thee will flatter : to I is and do , . my ? I are a ? : : her , of of ! . you be , in the . . so me the , : by to ! have , , so , To , for , To to ; , : so : To but ! thee and - as he The it , And so ' , a and of ' you my , a ! him this me in , . , . to to , , you in , , me will of him ' that d
-Training Batches 4599-4661: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.23s
-Training Batches 4662-4724: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4724: He that will give good words to thee will flatter thou : , and to my have with with : I all and to his , : to , of the the , : ? ? the for to to do ? . a a so my ? the - ; I And , his in , ; and ! I . . s . , , my I him , I : to is I , is s and to . shall : , of ; thou so , your ' to a - have . , that you ; you - - , I , , ' you
-Training Batches 4662-4724: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.27s
-Training Batches 4725-4787: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4787: He that will give good words to thee will flatter not the , this d : with ; I : to ; is and with I I , the : him . to ! ! but of will ? to he a . your of the ? ! d ! and he ! that you , And a you d ; as s I , my , , ' to my to I your : be in I s ; and . ; : ' it . ! ' is . , that he , your me . . a , ; to you shall a : : for :
-Training Batches 4725-4787: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.21s
-Training Batches 4788-4850: 100%|██████████| 63/63 [00:34<00:00,  1.86batch/s, loss=6.67]
-
-Generated text at batch 4850: He that will give good words to thee will flatter . you he thee you I not the : thou ; to to : me me ' my all ! : his , , ; ; will her of my : , , it : ? and , this to And his not and I me but her your I do not a . to you : , s in I : , he your I And with of his it it that The the , : the thee . the , in , ' . , my I . of you the ' it , : ? of for
-Training Batches 4788-4850: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.20s
-Training Batches 4851-4913: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4913: He that will give good words to thee will flatter , will , I have . : it my so , I d , : ; And not not . , the , me : that for that so , ? to . all . the I he is d I that And , , : that , and that to do s s ' , ' , s is the d his be And . me ! , - the me : he ! in To . : do : me . thee . , ' , as . , . To all will not and have , but
-Training Batches 4851-4913: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.19s
-Training Batches 4914-4976: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=6.67]
-
-Generated text at batch 4976: He that will give good words to thee will flatter thou the : , my my the his shall ? but so will ; a thee a , for have I , by be her ; - ' the and my s in . ? I . , ? , : thou , , and : the , . not the d , , the the by is I the all it so me , . be that of And to , ! his ? as but To : : I , me And , have the , you To : in in . this a shall to of .
-Training Batches 4914-4976: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.67]
-Epoch Loss: 6.4340, Time: 39.32s
-Training Batches 4977-5039:  37%|███▋      | 23/63 [00:12<00:21,  1.85batch/s, loss=6.58]
-
-Generated text at batch 4999: He that will give good words to thee will flatter , a - a of that : of thou the him you and s all , to his : is ! , , ' , ' , and The , ! him , . the : we a not : , me thou d thee ' to . , I s , thou : I : s the him have the we will : have , as ' I and you have , be and we : he have that me and all ' , ; ? not . , your , ' : . : him : : but
-Training Batches 4977-5039:  37%|███▋      | 23/63 [00:17<00:30,  1.31batch/s, loss=6.58]
-Epoch Loss: 6.4740, Time: 17.62s
+using device: cuda
+loaded 261973 tokens
+1 epoch = 63 batches
+New Vocab Size is: 19248
+TransformerModel(
+  (token_embeddings): Embedding(19248, 576)
+  (position_embeddings): Embedding(2048, 576)
+  (layers): ModuleList(
+    (0-29): 30 x TransformerLayer(
+      (self_attn): CausalSelfAttention(
+        (c_attn): Linear(in_features=576, out_features=1728, bias=True)
+        (c_proj): Linear(in_features=576, out_features=576, bias=True)
+      )
+      (ln_1): LayerNorm((576,), eps=1e-05, elementwise_affine=True)
+      (linear1): Linear(in_features=576, out_features=1536, bias=True)
+      (linear2): Linear(in_features=1536, out_features=576, bias=True)
+      (norm1): LayerNorm((576,), eps=1e-05, elementwise_affine=True)
+    )
+  )
+  (lm_head): Linear(in_features=576, out_features=19248, bias=True)
+)
+Total trainable parameters: 105384624
+No checkpoint found at /kaggle/working/checkpoint.pth, starting fresh training.
+Training Batches 0-62: 100%|██████████| 63/63 [00:34<00:00,  1.88batch/s, loss=7.01]
+
+Generated text at batch 62: He that will give good words to thee will flatter the , it . as . ll the the me the have ! ? in it , , shall but well ; , - if so you it , and no , , the ' the my : of be of ? d . , the the , shall ' : not , , , ! - And a the ? the and ? I ; with the the ? the , the the of ! . ' : the this . . you , ' the you ? , the have you , . , ! a she I
+Training Batches 0-62: 100%|██████████| 63/63 [00:38<00:00,  1.65batch/s, loss=7.01]
+Epoch Loss: 7.2789, Time: 38.12s
+Training Batches 63-125: 100%|██████████| 63/63 [00:33<00:00,  1.87batch/s, loss=6.88]
+
+Generated text at batch 125: He that will give good words to thee will flatter my : not the the I the And have we , . : the you . me is the in you PETRUCHIO it my the thy and her with , you I ' ! a ? And And I , I the you and the the our and the ' d the , be of . of , me . I . ' TRANIO : is TRANIO , the is . the our no , thy in it father not the as . thou ; say the have your . ? , the the ? a and the . ,
+Training Batches 63-125: 100%|██████████| 63/63 [00:39<00:00,  1.60batch/s, loss=6.88]
+Epoch Loss: 6.5660, Time: 39.48s
+Training Batches 126-188: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=6.6] 
+
+Generated text at batch 188: He that will give good words to thee will flatter and my is I with ' ISABELLA our . you of I have no LUCENTIO that all to ; To KATHARINA and you the HORTENSIO . Ay your the KATHARINA And her is the TRANIO , let of make , the The And . TRANIO is you ' s the LUCENTIO to not ' tis be is the ISABELLA : PETRUCHIO : LUCENTIO ? TRANIO the PETRUCHIO ; if the TRANIO , to To you not ' st , my the BAPTISTA . but the LUCENTIO are , I and , And the BAPTISTA for BAPTISTA . PETRUCHIO shall be
+Training Batches 126-188: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.6]
+Epoch Loss: 6.3477, Time: 39.57s
+Training Batches 189-251: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=6.32]
+
+Generated text at batch 251: He that will give good words to thee will flatter ' ll , I not , or to a a I all you be I have a KATHARINA , ' Tis . BIONDELLO - BAPTISTA : But is a the BAPTISTA with the tongue ? PETRUCHIO ? Nay : KATHARINA . PETRUCHIO , When should , here : Where with - PETRUCHIO : BAPTISTA : Signior to master I am the lord of the lord - head should not he no house the master ' ll no the world , sir is the house me ' s her her ? But no heavy not a s the world to the
+Training Batches 189-251: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.32]
+Epoch Loss: 6.0601, Time: 39.52s
+Training Batches 252-314: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=6.07]
+
+Generated text at batch 314: He that will give good words to thee will flatter , this the head . TRANIO ' d myself . PETRUCHIO ! BIANCA shall thy life ? Why thee ; to my husband the house , thou had me , the man of the state ? BIONDELLO in the house so no bed ; the father ; I ' tongue ; I do ? Come me . GRUMIO : I have be you ? PETRUCHIO : The mind ; Petruchio . My heart , my dear ? PETRUCHIO : ' tis the sun I pray , you ' tis the husband ' d ? BIONDELLO , we I may the
+Training Batches 252-314: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=6.07]
+Epoch Loss: 5.7985, Time: 39.51s
+Training Batches 315-377: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=5.81]
+
+Generated text at batch 377: He that will give good words to thee will flatter and no my honour , be well of your sake . HORTENSIO : No this , let me , you it so me I never you . PETRUCHIO of my lord it not not , here so , with this ; it hath you say and me to me which not . First name ? PETRUCHIO . PETRUCHIO : Ay , The duty of she might all , not be thou have you should will ? TRANIO : ' s husband in the very death ! A heart , here , all my VINCENTIO : I am that you .
+Training Batches 315-377: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=5.81]
+Epoch Loss: 5.5510, Time: 39.55s
+Training Batches 378-440: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=5.65]
+
+Generated text at batch 440: He that will give good words to thee will flatter . PETRUCHIO : Then , if you . TRANIO : He , not come a morning to my master , where she are and a man , sir . HORTENSIO : Why , sir , you shall not ? Why , and what have a more good wife , and a city , sir . PETRUCHIO : Bid patience . TRANIO : TRANIO : Now for him you not twenty of my husband ? HORTENSIO : Ay , he is a word . GRUMIO : Why , my wife . PETRUCHIO : He . DUKE VINCENTIO : ' s lord
+Training Batches 378-440: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=5.65]
+Epoch Loss: 5.3609, Time: 39.53s
+Training Batches 441-503: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=5.48]
+
+Generated text at batch 503: He that will give good words to thee will flatter . Pedant : The duke : Because , do not this . Pedant : ' s you , therefore , and love . GRUMIO : You warrant ' d be not me . KATHARINA : Now we shall you are you have him . Go will won ? LUCENTIO : Nay , you shall so you , what ? BIANCA : Ay , sir . TRANIO : My love it again ' s no master . PETRUCHIO : Why . PETRUCHIO : I will hear you ? KATHARINA : Why , as my company ? LUCENTIO : Ay . KATHARINA
+Training Batches 441-503: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=5.48]
+Epoch Loss: 5.1940, Time: 39.55s
+Training Batches 504-566: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=5.3] 
+
+Generated text at batch 566: He that will give good words to thee will flatter ; if I will all . TRANIO : Let me , sir : Why : I believe have a end ? LUCENTIO : And let them to be , take it not thy pleasure , for not in his love ; therefore ; And so ! I hear - morrow . KATHARINA : But to touch me to my master . ARIEL : ' d : Well , sir : There is , sir . HORTENSIO : A master . Now , where my master ! BIONDELLO : What it ? TRANIO : Now , sir with her him as
+Training Batches 504-566: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=5.3]
+Epoch Loss: 5.0576, Time: 39.54s
+Training Batches 567-629: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=5.14]
+
+Generated text at batch 629: He that will give good words to thee will flatter to pray . HORTENSIO : Nay , sir , sir ? KATHARINA : He is such sir ? PETRUCHIO : Let love , fair sir , I hear them good , sir ! PETRUCHIO : Pedant : Sir , sir ; I pray ! LUCENTIO : I , That you I have , And I will I take my wife , sir ? PETRUCHIO , sir ? PETRUCHIO : you . TRANIO : Pray it ! PROSPERO ! HORTENSIO : I will , I have . Provost : To bear ? KATHARINA : There ' rt you have you ?
+Training Batches 567-629: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=5.14]
+Epoch Loss: 4.9268, Time: 39.51s
+Training Batches 630-692: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=4.96]
+
+Generated text at batch 692: He that will give good words to thee will flatter you not a father , And thou please to - cony . PETRUCHIO : I ' d you ! I thank my brother , I did some Barnardine my horse ; he hath so take your death in a mistress at the father , you , by thy care . KATHARINA : And so mad ; no , you ? PETRUCHIO : Then see to a better ; Nor married you have ; I love to have to me ; For you are by the master ' s a little , for it , the church and by my mistress
+Training Batches 630-692: 100%|██████████| 63/63 [00:39<00:00,  1.59batch/s, loss=4.96]
+Epoch Loss: 4.7757, Time: 39.53s
+Training Batches 693-755: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=4.84]
+
+Generated text at batch 755: He that will give good words to thee will flatter . KATHARINA : I will do ! BIONDELLO : he , sir , he so , That my friend , you , I ' ll speak me as my father ' d , when this as I hear me a father . VINCENTIO : And I pray me : I pray me my face . SLY ' my wife . TRANIO : I do one I are with her good sir , my tongue to meet it in . PETRUCHIO : I am you have , how I ' tis a gown , sir ? PETRUCHIO : Ay , I
+Training Batches 693-755: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=4.84]
+Epoch Loss: 4.6622, Time: 39.16s
+Training Batches 756-818: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=4.72]
+
+Generated text at batch 818: He that will give good words to thee will flatter than my lord , I have my chamber . Pedant : I would I have have I will prove my father is to you ; have I have have a good father . PETRUCHIO : Why , That my name , sir : She be therefore I have to be a mistress : I am plain . Gremio , And I am his master : Why is a Barnardine ! TRANIO : I ' d . Was marry . TRANIO : I do her , or do I have marry , and therefore my master : It . KATHARINA :
+Training Batches 756-818: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=4.72]
+Epoch Loss: 4.5564, Time: 38.97s
+Training Batches 819-881: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=4.56]
+
+Generated text at batch 881: He that will give good words to thee will flatter . PETRUCHIO : Sir , sir : I may her , we must not you : TRANIO : I would not do no beast here , For I beseech you . PETRUCHIO : Sir , if he warrant her my father ! PETRUCHIO : O she have frown against her . PETRUCHIO : I do you must not , And by such the matter . I ' I have not this to see , Hortensio , thou have I beseech the first of her of her ten . PETRUCHIO : Marry , if Kate ! Pedant : Then ' d
+Training Batches 819-881: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=4.56]
+Epoch Loss: 4.4514, Time: 38.96s
+Training Batches 882-944: 100%|██████████| 63/63 [00:33<00:00,  1.87batch/s, loss=4.44]
+
+Generated text at batch 944: He that will give good words to thee will flatter my first , And she ' ll therefore no finder her ? Angelo , will be be a priest and half than the name as you , As left , if a mad , with , he knew the other a dozen blood . GRUMIO : I could , that if I speak . VINCENTIO : if that I ' twas a good , were you will , if she is good the manner are the poor in her women for the king and a hundred of her , a dozen women was , That I know ' s love
+Training Batches 882-944: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=4.44]
+Epoch Loss: 4.3508, Time: 39.08s
+Training Batches 945-1007: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=4.41]
+
+Generated text at batch 1007: He that will give good words to thee will flatter him he hath you , Which with my father you , That you ; And yet thus offer you will I be answer me . He is , sir , if you , if he comes you ; For me , I love you ? GREMIO : In private . DUKE VINCENTIO : if you my son ! that I fear , do him wrong , to see me . LUCENTIO : You will be forward . LUCENTIO : And a thing ? BAPTISTA : Why wrong ? CORIOLANUS : How he , he , but , As , one
+Training Batches 945-1007: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=4.41]
+Epoch Loss: 4.2432, Time: 38.95s
+Training Batches 1008-1070: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=4.26]
+
+Generated text at batch 1070: He that will give good words to thee will flatter her my king , if you , If we shall I know , which I thank you . GREMIO : I would say here will confess to it not ? PETRUCHIO : To Rome , I know the king ! Gremio ! PETRUCHIO : BUCKINGHAM : Gentlemen ; And let him ; And be too my lord , good lord , and I do it seems a masters - morrow ; Because my mistress ; And , That I ' d . TRANIO : If my lord ; And who came it , My lord ? HORTENSIO : we ,
+Training Batches 1008-1070: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=4.26]
+Epoch Loss: 4.1603, Time: 39.09s
+Training Batches 1071-1133: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=4.15]
+
+Generated text at batch 1133: He that will give good words to thee will flatter ? What is her himself ; for the king with shame , that may be have the king do , and a little , To say you you ? who please ; The villain ' s death . VINCENTIO : The man ! he ' ll say , where he seems ? TRANIO : Now , being the old ? First Citizen : and the time , The king ; so , he hath said ? My good I would have a man ! I hear , a wise , and , what , good , a man ' me
+Training Batches 1071-1133: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=4.15]
+Epoch Loss: 4.0614, Time: 38.88s
+Training Batches 1134-1196: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=4.04]
+
+Generated text at batch 1196: He that will give good words to thee will flatter him To make him . DUKE VINCENTIO : But he he does his father , Kate , For his fault , Or so , I , to bed ? Come it so as her love , for hand , Which if well his son , that to think your very first son , if thy father from the moon , Whose father ! What makes him to do me to your father beseech you . First Citizen : What you live ? CLARENCE : But I do you not to the case ' Fore me ? BAPTISTA : I will
+Training Batches 1134-1196: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=4.04]
+Epoch Loss: 3.9632, Time: 38.94s
+Training Batches 1197-1259: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.93]
+
+Generated text at batch 1259: He that will give good words to thee will flatter us , I pray you . PETRUCHIO : What , she ' s child . TRANIO : GREMIO : Well ? DUKE VINCENTIO : Ay , let me , sir , sir . PETRUCHIO : The tale let me leave him . MENENIUS : Yes , and it the duke is not you both the people . PETRUCHIO : Well , if you do it is ? a word , sir ; let me speak to her good merry and one woman , what fellow , And by the ice , If he ? TRANIO : Who was a gentleman
+Training Batches 1197-1259: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.93]
+Epoch Loss: 3.8668, Time: 39.00s
+Training Batches 1260-1322: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=3.86]
+
+Generated text at batch 1322: He that will give good words to thee will flatter than I am so , And let me , to ' d , Have it thus -- All cunning . LUCENTIO : The will be won on you these not my father , for me . KATHARINA : For private , my lord , what is your name , Never now , I am my power ? The boy , Gremio , I beseech you are of heaven ? For one of my countenance to get him , If the law ? DUKE VINCENTIO : The favour are now I do it , I am mad before , I must
+Training Batches 1260-1322: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.86]
+Epoch Loss: 3.7751, Time: 38.95s
+Training Batches 1323-1385: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.77]
+
+Generated text at batch 1385: He that will give good words to thee will flatter him by time ? GRUMIO : This is wrong ? what you , and I am content or else to him : But , I think you might do be first so : O , and I beseech you . What , you ; He hath ; If it , yet , If you , sir , And , And hear the prison with my servant , Were But I am a jot from me a I am content to use you truly , If I ' d , to your patience to use is he knew for me this
+Training Batches 1323-1385: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.77]
+Epoch Loss: 3.7055, Time: 38.99s
+Training Batches 1386-1448: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=3.68]
+
+Generated text at batch 1448: He that will give good words to thee will flatter it with a father ? For you to his father ? ESCALUS : KATHARINA : And that Petruchio ! I love he do a father ? if not his news have all a man , To love indeed her no thought you are to ' tis known , I pray thee , or you , but a confirmed love , Let me do it come about a silken , And give him in him do not to me ; and therefore a shrew of private to his face . TRANIO : I am a cup for my father ' t
+Training Batches 1386-1448: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.68]
+Epoch Loss: 3.6343, Time: 39.08s
+Training Batches 1449-1511: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.61]
+
+Generated text at batch 1511: He that will give good words to thee will flatter As his quarry As you . PETRUCHIO : Good time you I thank you are no more , I love ; And so did rather therefore he Minola , I am so wrong , where I beseech you love yet what I will not to you so I am out . PETRUCHIO : To do you show this wrong you are obedient in such to make me , I beseech you were as To meet upon me in this hand , Where I do beseech the city like patience To the choice ; But to make your honour ,-- TRANIO
+Training Batches 1449-1511: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.61]
+Epoch Loss: 3.5629, Time: 39.06s
+Training Batches 1512-1574: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=3.53]
+
+Generated text at batch 1574: He that will give good words to thee will flatter him his friends is so . I have , Which I have the old in a other lack - rule where I do I would have you can the people that you show me in : That by them do it . TRANIO : I am provided out ; Never never be , and so , so that that I show me , And to say . Is out to the hand , for no fit you . The charity ? What can I must have , and these man of good he is it hath , and as almost
+Training Batches 1512-1574: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.53]
+Epoch Loss: 3.4945, Time: 39.00s
+Training Batches 1575-1637: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.5] 
+
+Generated text at batch 1637: He that will give good words to thee will flatter him in time . DUKE VINCENTIO : This is you do I am one within thy husband , for request ; or where he knew no more than an Murderer : O that is a man live in a tabour of his respected fair . What , Which would not live might he hath so woo not access and carried live : To do not to him , The mad of a wrong ; But to serve , be not to be barr ' s be gone . KATHARINA : And then he did not what he shall not so
+Training Batches 1575-1637: 100%|██████████| 63/63 [00:39<00:00,  1.62batch/s, loss=3.5]
+Epoch Loss: 3.4373, Time: 39.00s
+Training Batches 1638-1700: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.44]
+
+Generated text at batch 1700: He that will give good words to thee will flatter me ? BAPTISTA : What him for his brother , Who now To you I beseech you ? VINCENTIO : See by the thing as yet mock him to go so much ; and withal , and yet so , Let , by your sister on him by that he hath hath he hath so so hath not possible with her . DUKE VINCENTIO : Who is out by his bed : In false a thing ? To think ' s to live ; And by nature came The one . DUKE VINCENTIO : what might be a man ,
+Training Batches 1638-1700: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.44]
+Epoch Loss: 3.3843, Time: 38.97s
+Training Batches 1701-1763: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.36]
+
+Generated text at batch 1763: He that will give good words to thee will flatter me . PETRUCHIO : I had an you not to be wholesome her as you , who would please ; And never die , And may show ' d withal , And , In what , GREMIO : I have done . GREMIO : the thing of this is so , he bids me for my fair sweet gentleman may be as she comes so , how himself . Why , ' d , sir , And he will I will be married ? GREMIO : Indeed , To know that , That had rather bid me to see me
+Training Batches 1701-1763: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.36]
+Epoch Loss: 3.3296, Time: 39.06s
+Training Batches 1764-1826: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=3.28]
+
+Generated text at batch 1826: He that will give good words to thee will flatter you ? TRANIO : I , and let me at your own , And then , And bear to bear a time , If that may scorn The traitor , The neck ; And to die to rejoice his neck -- BIONDELLO : Let me in absence thou not suffer VINCENTIO : To do ' d for virtuous of all law , I do beseech you -- TRANIO : My lord , Mark not before thee , To this news from him , I had I hear , And therefore , With my best ? TRANIO : And to die
+Training Batches 1764-1826: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.28]
+Epoch Loss: 3.2779, Time: 39.14s
+Training Batches 1827-1889: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.24]
+
+Generated text at batch 1889: He that will give good words to thee will flatter me . TRANIO : If you sir , sir , he hath given , Was he were thus ? O a deputy will be ? TRANIO : There ' en his sake . ESCALUS : Call some man ; And he is when you , is his great age shall live , that the deputy is born : I must be found him And bear him . DUKE VINCENTIO : He will be he when he , And , and my horse . DUKE VINCENTIO : An he hath his honour , how she has the first to him to
+Training Batches 1827-1889: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.24]
+Epoch Loss: 3.2240, Time: 39.00s
+Training Batches 1890-1952: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.23]
+
+Generated text at batch 1952: He that will give good words to thee will flatter him . ESCALUS : Let me this , let you will not , he seems , ere it to me what you ? ESCALUS : For will not the provost . DUKE VINCENTIO : Ay , Petruchio ! DUKE VINCENTIO : That hath some thing That offer than the Volsces would beseech you are his love and so good sir . DUKE VINCENTIO : I knew this his brother may have heard his device ; Who will not . DUKE VINCENTIO : And , And will , for their hand , For it ? TRANIO : Why , that one
+Training Batches 1890-1952: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.23]
+Epoch Loss: 3.1842, Time: 39.00s
+Training Batches 1953-2015: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3.2] 
+
+Generated text at batch 2015: He that will give good words to thee will flatter of I lived to be what , And new times , but a manner and his country you on his death , The father , For one , Or thus we promised so in arms affords him not by his country : Alas , For with him , Let his best : He is wise . Now , nor Elbow : What , where now , And : Go ? VINCENTIO : Fair Gentleman : Yet , what will call a word , noble duke be your noble heart be speak you ? PETRUCHIO : O new ? why ,
+Training Batches 1953-2015: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=3.2]
+Epoch Loss: 3.1540, Time: 38.99s
+Training Batches 2016-2078: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=3.16]
+
+Generated text at batch 2078: He that will give good words to thee will flatter me That I am one . DUKE VINCENTIO : What you not not , That he should not to this men at such half what these thus : It is so thing . TRANIO : I beseech you are ? KATHARINA : yet to hear your noble as a man . PETRUCHIO : you be it so much more than I pray , I beseech you . BAPTISTA : I beseech you , I know my master Minola ? KATHARINA : What to you to crave you please you do her good , That ? TRANIO : The gentleman of
+Training Batches 2016-2078: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.16]
+Epoch Loss: 3.1159, Time: 39.15s
+Training Batches 2079-2141: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=3.1] 
+
+Generated text at batch 2141: He that will give good words to thee will flatter ? I saw me were a worthy to the neck . DUKE VINCENTIO : I have given to be born to , then since you . GREMIO : Away did you know not the court . PETRUCHIO : Nay , sir , no more I think you well , I pray you are you come to meet ? PETRUCHIO : But this one seems to this strange . PETRUCHIO : How therefore thus ? poking , sir , how you your honour , if you , you are no ? KATHARINA : Ay , if it is it ' ll
+Training Batches 2079-2141: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.1]
+Epoch Loss: 3.0808, Time: 39.04s
+Training Batches 2142-2204: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=3.06]
+
+Generated text at batch 2204: He that will give good words to thee will flatter men ; Commend me out of white and evil , If I know the court and humbly for true own and his cause Of execute her unhappy ; but lay from duty may not dark : There had , With all the law , who ; No . FLORIZEL : if I am come on them good with you have as you read with the more . GREMIO : Or else ! Worthy Barnardine may break deeds , were ? TRANIO : Be those that I see : He shall please you with what it too . LUCENTIO : No
+Training Batches 2142-2204: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.06]
+Epoch Loss: 3.0435, Time: 39.13s
+Training Batches 2205-2267: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=3.06]
+
+Generated text at batch 2267: He that will give good words to thee will flatter her That dared to take it . O tears to do , Is one enough , if you hold tears with private ; and honour ' d me a chamber ; Another seven , Yet so I do I am no more , For the very advice of the court : if you all . O you , I had die the very house , if you saw me , have not speak to be on you swear to be so , though you love his father can find us , Signior Gremio : Do you . ESCALUS : But
+Training Batches 2205-2267: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.06]
+Epoch Loss: 3.0246, Time: 39.13s
+Training Batches 2268-2330: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=3.02]
+
+Generated text at batch 2330: He that will give good words to thee will flatter at a white - draw on for my first ? If you do one as man : Why , I thank you ; I humbly not show , I beseech it possible , for oath , for my fortunes to get again , or it . GREMIO : Why , I can I think or fall or he comes my heart to the thing , To you be he ' d : Be hatch ' ll show me on I think you show me a fool please a great honour of joy And therefore ; He ' er all the
+Training Batches 2268-2330: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3.02]
+Epoch Loss: 3.0000, Time: 39.21s
+Training Batches 2331-2393: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=3]   
+
+Generated text at batch 2393: He that will give good words to thee will flatter snow of mercy . FRIAR PETER : I were needful given , sir . Provost : I had mine fellow , help me from me to bear his face . What you were a man ; I do to come thus by him ? I am none shall not possible ; for it not that new - Servant : he that long for a man ? TRANIO : By his foot than I can do to do it is a plague I thank your mistress ' s honour , let ' ll know a poor duke comes he no wit
+Training Batches 2331-2393: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=3]
+Epoch Loss: 2.9748, Time: 39.01s
+Training Batches 2394-2456: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.99]
+
+Generated text at batch 2456: He that will give good words to thee will flatter you will do a gentlewoman ? DUKE VINCENTIO : I call him do , I love I know his favour . ESCALUS : Ay , and bad . POLIXENES : Gentle my lord , my lord ; for him to forswear him be your chamber Is thou hast burnt ; Nor ' d him so well I beseech you ere this ? DUKE VINCENTIO : How ? TRANIO : By heaven , sir , ha : I love no ; nay , you have sorry think how much we make one licence and poking , But , I can be
+Training Batches 2394-2456: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.99]
+Epoch Loss: 2.9458, Time: 39.09s
+Training Batches 2457-2519: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.96]
+
+Generated text at batch 2519: He that will give good words to thee will flatter . DUKE VINCENTIO : He did this nigh , that scorn . DUKE VINCENTIO : He is a woman on my neck ,-- DUKE VINCENTIO : Dispatch . Why that he , sir , ha : The gracious good my father , I fear longer . DUKE VINCENTIO : Now know no gentleman ! PETRUCHIO : He is not to be time to hear me to him to his honour ! I know her he must have , gentle that honest he hangs on a means himself when he were he seems to accuse by that I beseech he did
+Training Batches 2457-2519: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.96]
+Epoch Loss: 2.9218, Time: 39.04s
+Training Batches 2520-2582: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.97]
+
+Generated text at batch 2582: He that will give good words to thee will flatter heaven , And so thus he is her friends to hear somewhat As one flourish Of one thing Than this heaven , or born court ' tis , Or therefore to me himself , which late to do do not mad sense even that , Let heaven , ha , Who , if this afternoon , if he hath no power for you to a dangerous gentleman , do not those of my mind , And born , And know the other person and think is no longer night . For I have ; therefore been mad of my wife
+Training Batches 2520-2582: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.97]
+Epoch Loss: 2.9166, Time: 39.12s
+Training Batches 2583-2645: 100%|██████████| 63/63 [00:34<00:00,  1.86batch/s, loss=2.94]
+
+Generated text at batch 2645: He that will give good words to thee will flatter , I will not scorn again in heaven . I have meet you had find - VI VINCENTIO : Sir , to me to do not make her lord , That you well in a farmer came to do not my life to heaven . PETRUCHIO : I hear : Why , he hath mine ? ISABELLA : And I know my question your honour ; look ' t for this . I think you , Petruchio ' t , that I love a ignorant allied ' t to me , you know me ; he deserved the word Shall
+Training Batches 2583-2645: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.94]
+Epoch Loss: 2.8999, Time: 39.01s
+Training Batches 2646-2708: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.92]
+
+Generated text at batch 2708: He that will give good words to thee will flatter and I had him straight to heaven to night . DUKE VINCENTIO : DUKE EDWARD IV : I do , what to a subject ' tis burnt for this is a gentlewoman . GREMIO : I prithee hear him . What , how you speak ? what is the deed is no power ? What ; ha ? O mistress ? Speak to offend her ; I profess ; the duke ' s my lord , and Katharina , he be a very very gentleman , ha ? I cannot crave her cousin , what the duke ? O ,
+Training Batches 2646-2708: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.92]
+Epoch Loss: 2.8810, Time: 39.06s
+Training Batches 2709-2771: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.89]
+
+Generated text at batch 2771: He that will give good words to thee will flatter of it will perceive What a life : I won I have the king perform no better to do a name . I am , if this scolding love my faith , I am dared in this court or have been : I know ' erwhelm you shall hear you were out of love ; If I pray you love ? DUKE VINCENTIO : He can hit her , If not , marry me to be ta ' ld go , To do me not , And I mean Were he , Which I am given to meet me ,
+Training Batches 2709-2771: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=2.89]
+Epoch Loss: 2.8610, Time: 38.99s
+Training Batches 2772-2834: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.86]
+
+Generated text at batch 2834: He that will give good words to thee will flatter him out of child , That his face ' d on the one , And take their request had been but by his father and therefore to be one shall not so court of my friends so Angelo , or one hath kept before . Second Gentleman : if he hath need but this . DUKE VINCENTIO : The child ! he is the devil , I hear on the truth of my father not so , I must be great women are very strange and though we have not ; let us here , For he is that favour
+Training Batches 2772-2834: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.86]
+Epoch Loss: 2.8416, Time: 39.06s
+Training Batches 2835-2897: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=2.85]
+
+Generated text at batch 2897: He that will give good words to thee will flatter him To scorn him , That the one flourish Which , But when he not suffer ' d so ; For I humbly beseech you ; you might think I do beseech you like a king , you take your father : Why , If it ? By your friend , Of what you be such my sweet father love The queen to do it ? what he that I ; For Gloucester ; And did die , Who will be not on me ? That , I beseech you should speak , To stand that will not on me
+Training Batches 2835-2897: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=2.85]
+Epoch Loss: 2.8258, Time: 38.98s
+Training Batches 2898-2960: 100%|██████████| 63/63 [00:33<00:00,  1.86batch/s, loss=2.83]
+
+Generated text at batch 2960: He that will give good words to thee will flatter me against my lord , to his power or I dare not . KING RICHARD III : I beseech you know , Or , I will , so : Yet expect to make you no part : So yours . LORD selves : he should be what long ? First Citizen : Very the queen from either him dead ; beseech you ? are well to the contrary . KING HENRY VI : My lord , you know you are so ? CLARENCE : Well a sin . HERMIONE : What do not , When dear he , I think
+Training Batches 2898-2960: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.83]
+Epoch Loss: 2.8014, Time: 39.15s
+Training Batches 2961-3023: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.81]
+
+Generated text at batch 3023: He that will give good words to thee will flatter adversaries ! DUKE VINCENTIO : By thine , I mean thy daughter for soon abused To keep your bed , I saw one Have well for what ' t are able to - one ere when I ' s point . FRIAR LAURENCE : I pray this Prince of you , Or else please my wife , Nor told her As I ' t , To scorn ' tis known ; which I , he did bear , he spake thy man , O monstrous , he does see this hand , to my lord , I have a woman
+Training Batches 2961-3023: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.81]
+Epoch Loss: 2.7789, Time: 39.03s
+Training Batches 3024-3086: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.79]
+
+Generated text at batch 3086: He that will give good words to thee will flatter men . O lady ! DUKE EDWARD IV : He can no more thousand and me and her good blood all with us . DUCHESS OF YORK : DUKE VINCENTIO : O then , and here full as I will be so , who shall ; O , for I thank thee , Prince IV : My sovereign ; I am called to say ; for no more . KING HENRY VI : Who , I am a wise . DUKE VINCENTIO : Ay , belike they may think ' s sake . KING RICHARD III : Be thou ?
+Training Batches 3024-3086: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.79]
+Epoch Loss: 2.7593, Time: 39.06s
+Training Batches 3087-3149: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.77]
+
+Generated text at batch 3149: He that will give good words to thee will flatter courtesy , and myself , But so on aught where he was , I will do perform to the court Of what he was mad men of charity , I will . I would say , who I understand ? BUCKINGHAM : I thank me not grief of such a father , I will be born to the law to do beseech you here , to me . LADY art ; and he ; And you do , if I do I beseech you to me , for it . GREMIO : I do beseech you ; and I never
+Training Batches 3087-3149: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.77]
+Epoch Loss: 2.7415, Time: 39.16s
+Training Batches 3150-3212: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.76]
+
+Generated text at batch 3212: He that will give good words to thee will flatter him . QUEEN ELIZABETH : Is that you not certain more gentleman of love . DUKE VINCENTIO : And hear , That he ? DUKE OF CLIFFORD : No , no other this hangs on my master withal , a boy ; a score , I know ' t ' s true , I pray you love the subject to hear you from it comes to thee , I think thou so did knowledge to what , to the field . HORTENSIO : The man , beseech you of us at the death . O , I cannot ' t
+Training Batches 3150-3212: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.76]
+Epoch Loss: 2.7235, Time: 39.10s
+Training Batches 3213-3275: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.74]
+
+Generated text at batch 3275: He that will give good words to thee will flatter happiness ; and his lord , That I won . KING HENRY VI : I beseech you at no , I am not that so ? Romeo ' s dead than the matter , ' d : When I know the very time ; In his ear as by torture , make us , no , was long we will not no issue of redress of him to say , do honour , the virtues to him . HENRY BOLINGBROKE : Good hand , the tears , thou this gentleman thou think it ? DUKE VINCENTIO : Good thee a
+Training Batches 3213-3275: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.74]
+Epoch Loss: 2.7108, Time: 39.12s
+Training Batches 3276-3338: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.73]
+
+Generated text at batch 3338: He that will give good words to thee will flatter - All time , What his love . Servant : What I think now I reckon and so great brother ' t I have beseech you ; and a villain , what he hath speeded at love I am no hope ? I never spake ; what I dare , Which , you follow him from my love , I must bear the butchers of York . I think my brother than wrong no need to the devil That he at some dream ; Who speaks it on the man should come to joy , It was done . DUKE
+Training Batches 3276-3338: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.73]
+Epoch Loss: 2.6989, Time: 39.03s
+Training Batches 3339-3401: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.72]
+
+Generated text at batch 3401: He that will give good words to thee will flatter me a worser the time hath known . KING RICHARD : He will pluck him too foot no issue : Pray ' er ' s some other ; let the shepherd , and flourish upon your name beseech you pardon her I , I say , come on name for what , Shall I am so too late : say , How else not , I hear out of your honour . I am show ' d . RICHMOND : Sir , When you hit it is your name to crave the prayer : Lord ELIZABETH : The vile ,
+Training Batches 3339-3401: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.72]
+Epoch Loss: 2.6879, Time: 39.06s
+Training Batches 3402-3464: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.71]
+
+Generated text at batch 3464: He that will give good words to thee will flatter you When tears ? Have you know this lean are born . DUCHESS OF YORK : See thou beseech the duke , am one noble suit , I have out of such a villain ' d his hand , Which for mine . I was no cause that I must not , thou mayest VINCENTIO : One , not to this gentleman . I will make it be called me , ' d With thine lap of love , When dying than his own groans : No man ; Which take out of them , Or thou , When scarce
+Training Batches 3402-3464: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.71]
+Epoch Loss: 2.6774, Time: 39.04s
+Training Batches 3465-3527: 100%|██████████| 63/63 [00:34<00:00,  1.86batch/s, loss=2.7] 
+
+Generated text at batch 3527: He that will give good words to thee will flatter courtesy . DUKE VINCENTIO : And about thee to this proud gentlewoman , who , I thank your tale to - bear ; who : for him , I know thee a forsworn , There shall not hear me to hear and therefore are silent , The very name out : By me , no , What , Because I ' s face . KING RICHARD III : I will teach me . TRANIO : let her , sir ; and if I think ' s name , for any wrong . DUKE VINCENTIO : Sweet that is still him
+Training Batches 3465-3527: 100%|██████████| 63/63 [00:39<00:00,  1.62batch/s, loss=2.7]
+Epoch Loss: 2.6653, Time: 39.01s
+Training Batches 3528-3590: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.69]
+
+Generated text at batch 3590: He that will give good words to thee will flatter courtesy , what I will no doubt . QUEEN ELIZABETH : Know you , sir ? PETRUCHIO : Who shall , I have upon your mistress , he Grey , I must I profess . LEONTES : A simple presence , to make me , he , if you have wilt have hate me , Which I will not his mistress ; For time there ; Sir , I beseech you not , So said behind us to her . GLOUCESTER : Sir , Which I shall I , beseech you go and yours in the new name it :
+Training Batches 3528-3590: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.69]
+Epoch Loss: 2.6582, Time: 39.06s
+Training Batches 3591-3653: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.68]
+
+Generated text at batch 3653: He that will give good words to thee will flatter me , I will not a love . KING HENRY BOLINGBROKE : Why , then . FLORIZEL : You tell me charged you , I beseech you have no manner I am known done . ESCALUS : What bed , tell me have her to her tale that we will bear : No , what news to such heart ? DUKE VINCENTIO : I do you , to crave his mistress . ESCALUS : Then ' s to hear me , sir , if he the ground , madam , thou art he , that ' s mild to have
+Training Batches 3591-3653: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.68]
+Epoch Loss: 2.6515, Time: 39.18s
+Training Batches 3654-3716: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.68]
+
+Generated text at batch 3716: He that will give good words to thee will flatter adversaries , which God not so , I will wet him . LEONTES : What , what no more ; I am possible ; I will you not the king I will put The wrong ; only that I speak to bed - disquiet : He did , and I the soul of men have known . DUKE VINCENTIO : What , sir : What witness when you ; I do you , good man ? DUKE VINCENTIO : the duke , where an such a mistress ; And he did offer , I should bear it is I swear
+Training Batches 3654-3716: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.68]
+Epoch Loss: 2.6451, Time: 39.07s
+Training Batches 3717-3779: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.67]
+
+Generated text at batch 3779: He that will give good words to thee will flatter adversaries . DUKE VINCENTIO : The plain men were given , when I must have beseech him to her a worthy one thing . Second PETRUCHIO : Well , father ! SICINIUS : If you must not hear me . DUKE OF ELY : Indeed , Let her but , that did long , to this abused here in their five matters with him by the prince , I mean to Rome , And when I thought than a thief , as I thank you , We will pluck her to command here . Hark , to her my power
+Training Batches 3717-3779: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.67]
+Epoch Loss: 2.6387, Time: 39.07s
+Training Batches 3780-3842: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.66]
+
+Generated text at batch 3842: He that will give good words to thee will flatter heaven withal I do not for Juno than thou ; Or I am even as done , The state Is his children ; if though I will be a wrong thee : Be married of her that ever I love them . GLOUCESTER : I have , I would he was wrong , my request me , Or I will not her true I go to me , Than love . I do , I will time , do me , I , so long . MENENIUS : It is did I will keep it , that is good good
+Training Batches 3780-3842: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.66]
+Epoch Loss: 2.6308, Time: 39.10s
+Training Batches 3843-3905: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.66]
+
+Generated text at batch 3905: He that will give good words to thee will flatter - fast and execute him . DUKE VINCENTIO : There shall be so , I might live to beseech heaven . DUKE VINCENTIO : He enjoys him so an time I have given To love . MARIANA : He Grey ! PETRUCHIO : Why can thy true fair cousin you ? what is my good ; If , he did I am not : Since I shall be so I have her a father out of them , his son . But see her a man ? But come from me swear and leads . POLIXENES : What good sir
+Training Batches 3843-3905: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.66]
+Epoch Loss: 2.6265, Time: 39.04s
+Training Batches 3906-3968: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.65]
+
+Generated text at batch 3968: He that will give good words to thee will flatter heaven ? DUKE LAURENCE : It will be so , or a month , I beseech thee , I have , I do he can humbly learn him . Why the prince , for I , he ; For not this dead ,' he would beseech so be I speak , For left no man , if he had I live With mild soul : And the Lord : He was the man have me of honour , I ' d his honour , and honour , do it . KATHARINA : Let me be my good , for one
+Training Batches 3906-3968: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.65]
+Epoch Loss: 2.6224, Time: 39.07s
+Training Batches 3969-4031: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.65]
+
+Generated text at batch 4031: He that will give good words to thee will flatter earth . Now , If the gentlewoman , then you do , my charge me , here , I have mine looks ' d upon , I thank thee , my father . DUCHESS OF GAUNT : But what thou know , ' st I love him how so ? I , good young father , As joyful father , thy state ; so there was a mistress ! If the dead , unwilling oratory That him live with thy sovereign , though I speak with his grace .' Did all I do dead , Thy brother was his face
+Training Batches 3969-4031: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.65]
+Epoch Loss: 2.6183, Time: 39.03s
+Training Batches 4032-4094: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.65]
+
+Generated text at batch 4094: He that will give good words to thee will flatter men . O tears , cousin , to Claudio , he go on , I am satisfied . KING RICHARD II : The child ' s banishment ; and Harry A man that he was , he had set the tale to the neck of your own than to forswear him , if I speak ; And thus ? RICHARD III : What beseech you love there , it ? DUKE OF AUMERLE : A worthy he did known too much to the great - morrow : Why , I should not to yours for him . KING RICHARD III
+Training Batches 4032-4094: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.65]
+Epoch Loss: 2.6143, Time: 39.06s
+Training Batches 4095-4157: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.64]
+
+Generated text at batch 4157: He that will give good words to thee will flatter ; I did do not myself , therefore tied , O lady . GLOUCESTER : Away to be my honour ' d for their heart ; and thy father ; I tell you , I was a king : I have I wish to be done me . What e ' s : No , will be given away ; I am no man : I swear : I know to thee . PETRUCHIO : You will be full of you so much , I will not have been in this rude sooner yours , the sound , I must
+Training Batches 4095-4157: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.64]
+Epoch Loss: 2.6091, Time: 39.04s
+Training Batches 4158-4220: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.64]
+
+Generated text at batch 4220: He that will give good words to thee will flatter heaven ? What ' s a pleasure ; and seven one when you , Is love , dying thing not not yet . O my joints doth thy neck , then , be so late , who cannot see what thou thyself , to see thee , there is now , and services on her . KATHARINA : By my poor word , I beseech you To be long he should to my mistress ; and take them on a wise with God call him a man of ours . GRUMIO : Ay , Or so much before the one
+Training Batches 4158-4220: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.64]
+Epoch Loss: 2.6064, Time: 39.15s
+Training Batches 4221-4283: 100%|██████████| 63/63 [00:34<00:00,  1.86batch/s, loss=2.64]
+
+Generated text at batch 4283: He that will give good words to thee will flatter me but what mistress , To the neck ere I beseech you . DUKE OF YORK : I beseech you your father , When true , I pray you show : I ; you beseech you the duke ; And durst keep his bed . DUKE VINCENTIO : Then I love , Or be obedient an merry . STANLEY : Come on the field i ' t to the present answer her a word . I beseech you so how , That is that - proud to a woeful presence , Or whether you are very true , Who should
+Training Batches 4221-4283: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.64]
+Epoch Loss: 2.6038, Time: 39.10s
+Training Batches 4284-4346: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.63]
+
+Generated text at batch 4346: He that will give good words to thee will flatter . What love me on ? I mean possible ? Keep scene of a faults ? My child : All : I hate , When you in his faces ; And , and it ? I mistake so embrace upon thee , Let thee , for this deed : Yes , my son , so good man too much from thy quarrel with the king cannot , ay . Pray ! Why know I am silent with thee ; so young woman are thou varlet Has not live . His voices ! After , a merry . Yet yet thou
+Training Batches 4284-4346: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.63]
+Epoch Loss: 2.6011, Time: 39.07s
+Training Batches 4347-4409: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.63]
+
+Generated text at batch 4409: He that will give good words to thee will flatter afford at a law , When it and virtuous sorrow , I was no one And now I do ; And call him Than be love : the court is yet not lodged or to be a great , Which one that hath seen ; for I beseech you can bear : I hear her , I had , and so pent friends . KING RICHARD II : We have , hear me ? Sir , sir , you well my sorrow ; if you speak ; And sure on mine ? where : if yours that I ' d
+Training Batches 4347-4409: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.63]
+Epoch Loss: 2.5985, Time: 39.10s
+Training Batches 4410-4472: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.63]
+
+Generated text at batch 4472: He that will give good words to thee will flatter happiness withal o ' s time ! But her two , I thank you your hand Which had used than the king no less Than not have ; the ice , I hold your lineaments : I do beseech you to her this youth of your name of state in them , which of proud , I know me here to be deliver ' d , ' t , And being so kiss ' Tis in question . Lord Should die . Is death to my pity me ; for his honour : I do me on my mistress !
+Training Batches 4410-4472: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.63]
+Epoch Loss: 2.5951, Time: 39.11s
+Training Batches 4473-4535: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.63]
+
+Generated text at batch 4535: He that will give good words to thee will flatter me A white eyes , And this night , I fear to him To the bark upon so , By what I pray him ' Tis given , Is when any name . QUEEN ELIZABETH : I know no name you in the noble men of heaven , love hath burnt with me , The very old tale : And I beseech you before thy need . This love who , that shall not a glass , or I , When forsworn again , love you , Or much love ; for I would please the court of the matter
+Training Batches 4473-4535: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.63]
+Epoch Loss: 2.5933, Time: 39.05s
+Training Batches 4536-4598: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4598: He that will give good words to thee will flatter name ? DUKE LAURENCE : what I humbly let me , There is silent years to be measures . BRUTUS : That if I warrant no saint , That I ' d Claudio , and in death Till you no other Has never can born . DUCHESS VINCENTIO : No , One word : The wanton thee so no ; And he am gone , I said ' s son ! where he had been gone on my mother , is not by his saint , who is his majesty , But by the selfsame justice ; Be thou please
+Training Batches 4536-4598: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.62]
+Epoch Loss: 2.5916, Time: 39.06s
+Training Batches 4599-4661: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4661: He that will give good words to thee will flatter heaven afford and many cony , And who comes their sorrow please where sorrow , is All : Why , the king ' s death ? If you may not so : The king , father , What , I thank you not be so I love ? why not be sold , Even to her it hath not on ' s sound ? When I would be so much As I think so so did , That there : He hath so his name - breach ELIZABETH : Thou liest , As he pluck that all and his presence
+Training Batches 4599-4661: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.62]
+Epoch Loss: 2.5899, Time: 39.05s
+Training Batches 4662-4724: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4724: He that will give good words to thee will flatter reproof , And you pluck them on , Or you with safety , may accept you were even to him ready to his dancing strength from his opinion , We shall follow me on it . HENRY BOLINGBROKE : Who , to lose a thing but I am provided that comes ? What forbid ? I am thus to this name ; And you have , consider With our power ; And shall you well of him to answer you , And he comes too , who will to bear you deliver ' d To understand , and to live
+Training Batches 4662-4724: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.62]
+Epoch Loss: 2.5882, Time: 39.15s
+Training Batches 4725-4787: 100%|██████████| 63/63 [00:33<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4787: He that will give good words to thee will flatter noses , And know the king ere it not so be woman of state ; And so , and I thank them to death to ; no particular , When thou sold her but my children , He owed in heaven , What , being a king . What says so respected court York , will not so bastard ? By this great hand : Is noble lord , I cannot not for me ? I am , That hath thy name nor great - love That he were himself , Nor never brought there comes he were to wail
+Training Batches 4725-4787: 100%|██████████| 63/63 [00:38<00:00,  1.62batch/s, loss=2.62]
+Epoch Loss: 2.5859, Time: 38.96s
+Training Batches 4788-4850: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4850: He that will give good words to thee will flatter them in justice - point of it . DUCHESS OF cousin age , When I have to give me this ; All : I think , which and scorn ? DUCHESS OF YORK : Why that they do beseech you , to your ladyship , since from London , That Edward , my love was not to the field ; and thrive to what ' twere a woman ; The league of patience . KING RICHARD II : but I cannot not are I know myself ? Why should do to die . DUKE VINCENTIO : What , my grace
+Training Batches 4788-4850: 100%|██████████| 63/63 [00:39<00:00,  1.62batch/s, loss=2.62]
+Epoch Loss: 2.5848, Time: 39.01s
+Training Batches 4851-4913: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.62]
+
+Generated text at batch 4913: He that will give good words to thee will flatter me to the air , For my state , If you I had , who lineaments , good boy to you mistake his bidding . Take him not myself ? O , sir : What will you your presence ! ESCALUS : Thanks , I am love ? LEONTES : Indeed , I am your noble lords . HASTINGS : beseech you as you say ? Lady commends ? what ; what I beseech you love Which , I do so else he either a man ? TRANIO : I will , As truth betwixt him , when I trust
+Training Batches 4851-4913: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.62]
+Epoch Loss: 2.5836, Time: 39.07s
+Training Batches 4914-4976: 100%|██████████| 63/63 [00:34<00:00,  1.85batch/s, loss=2.61]
+
+Generated text at batch 4976: He that will give good words to thee will flatter death ! What love from Rome , There ' s well boy , where thy boon , I am seems ,' I send That I was past , I humbly beseech you ; for some savours of my life for this gentlewoman , And yet . The king is your love , ' t ? TRANIO : Your noble masters , tell you be so thrive hath been thus when she shall be lean me , Angelo , I be so given him , I may speak of York ! For ' d , Your own Than to ' t
+Training Batches 4914-4976: 100%|██████████| 63/63 [00:39<00:00,  1.61batch/s, loss=2.61]
+Epoch Loss: 2.5825, Time: 39.13s
+Training Batches 4977-5039:  37%|███▋      | 23/63 [00:12<00:21,  1.85batch/s, loss=2.61]
+
+Generated text at batch 4999: He that will give good words to thee will flatter me with intercession suit With DUKE OF neck , and my friends , And I do to Rome , Who , I do it ; That know this good father ' s death , And so thrive thus private ! DUKE OF YORK : ' twere not the state that I , But what tongue , to scorn me , I do beseech you , I thank you withal betwixt thee not not my tongue , I . Nor should ? JULIET : What , ' t go so I would be thus : I do beseech it is it
+Training Batches 4977-5039:  37%|███▋      | 23/63 [00:17<00:30,  1.32batch/s, loss=2.61]
+Epoch Loss: 2.6137, Time: 17.48s
 </pre>
 
 
@@ -452,12 +475,12 @@ TransformerModel(
   (lm_head): Linear(in_features=576, out_features=19248, bias=True)
 )
 Total trainable parameters: 105384624
-<ipython-input-11-e6e19b3533c4>:52: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+<ipython-input-3-e6e19b3533c4>:52: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(checkpoint_path, map_location=torch.device(device))
 Checkpoint loaded from /kaggle/working/checkpoint.pth at batch 4999
-Training Batches 4999-5061:  81%|████████  | 51/63 [00:27<00:06,  1.84batch/s, loss=6.28]
+Training Batches 4999-5061:  81%|████████  | 51/63 [00:27<00:06,  1.84batch/s, loss=2.63]
 
-Generated text at batch 5049: He that will give good words to thee will flatter : , in . this . are , it for , - and ! for ? the have his all as ! , me we The of in : I him , . , the , And ' s so with And him . : , , of have the ' is , : : and with it of , ? , and my I of s , , ? , are , , me ' . the ' , shall . . ? : I , my my of , have that with . : and you shall I
-Training Batches 4999-5061:  81%|████████  | 51/63 [00:32<00:07,  1.55batch/s, loss=6.28]
-Epoch Loss: 6.4487, Time: 32.94s
+Generated text at batch 5049: He that will give good words to thee will flatter heaven , To his sorrow , and be dead , I pray To whip thee ; for those to the truth !' And this mind - contrived not the field the devil do not answer . Now , though the house , I never never given the Lady : Good deed , my love ' st my office , I had this most tied and the hand , I fear . The innocent power before to the manner to me good night ? BRUTUS : The state can so that he speaks the very new man hath thought it ?
+Training Batches 4999-5061:  81%|████████  | 51/63 [00:32<00:07,  1.55batch/s, loss=2.63]
+Epoch Loss: 2.6001, Time: 32.81s
 </pre>
