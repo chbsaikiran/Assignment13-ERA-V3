@@ -112,10 +112,9 @@ class TransformerLayer(nn.Module):
         # Self-attention block
         attn_output = self.self_attn(self.ln_1(x))
         x = x + attn_output  # Residual connection
-        x = self.norm1(x)
 
         # Feedforward block
-        ff_output = self.linear2(self.activation(self.linear1(x)))
+        ff_output = self.linear2(self.activation(self.linear1(self.norm1(x))))
         x = x + ff_output  # Residual connection
 
         return x
