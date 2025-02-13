@@ -1,245 +1,409 @@
 import torch
-from torch.utils.data import Dataset, DataLoader
-from model import TransformerModel, config
-from tokenizers import Tokenizer
-from tokenizers.models import WordPiece
-from tokenizers.trainers import WordPieceTrainer
-from tokenizers.pre_tokenizers import Whitespace
-import os
-from torchsummary import summary
-from tqdm import tqdm
-import time
+import torch.nn as nn
+import math
 
-# Function to train a new tokenizer
-def train_tokenizer(data_files, vocab_size, save_path):
-    """
-    Args:
-        data_files: List of file paths containing text data.
-        vocab_size: Desired vocabulary size.
-        save_path: Path to save the trained tokenizer.
-    """
-    tokenizer = Tokenizer(WordPiece())
-    tokenizer.pre_tokenizer = Whitespace()
+# RMSNorm is a normalization technique that normalizes the input by dividing by the square root of the variance plus a small number to prevent division by zero
+class LlamaRMSNorm(nn.Module):
+    def __init__(self, hidden_size, eps=1e-5): # the number of features/dimensions/embeddings in the input, eps is a small number to prevent division by zero
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(hidden_size)) # weight is a learnable parameter that scales the input
+        self.eps = eps
 
-    trainer = WordPieceTrainer(
-    vocab_size=vocab_size,
-    special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"],
-    min_frequency=1  # Lower threshold to include more tokens
+    def forward(self, x):
+        norm = x.pow(2).mean(-1, keepdim=True).sqrt() + self.eps # compute the norm of the input
+        return x / norm * self.weight # normalize the input by dividing by the norm and scale it by the weight parameter
+
+
+# RotaryEmbedding is a technique that rotates the input by a learnable angle
+class LlamaRotaryEmbedding(nn.Module):
+    def __init__(self, dim, base=10000, device=None): # dim is the number of features/dimensions/embeddings in the input, base is a base number for the frequency, device is the device to store the buffer
+        super().__init__()
+        inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2, device=device).float() / dim)) # compute the inverse frequency
+        self.register_buffer("inv_freq", inv_freq) # register the inverse frequency as a buffer
+
+    def forward(self, x, seq_len):
+        seq_len = seq_len.to(x.device) # convert seq_len to the device of the input 
+        t = torch.arange(seq_len, device=x.device) # create a tensor of the sequence length
+        freqs = torch.einsum("i,j->ij", t, self.inv_freq) # compute the frequency by taking the dot product of the sequence length and the inverse frequency
+        emb = torch.cat((freqs, freqs), dim=-1) # concatenate the frequency with itself
+        return emb
+
+class LlamaMLP(nn.Module):
+    def __init__(self, dim, hidden_dim):
+        super().__init__()
+        self.gate_proj = nn.Linear(dim, hidden_dim, bias=False) # create the gate projection layer with the input dimension and the hidden dimension
+        self.up_proj = nn.Linear(dim, hidden_dim, bias=False) # create the up projection layer with the input dimension and the hidden dimension
+        self.down_proj = nn.Linear(hidden_dim, dim, bias=False) # create the down projection layer with the hidden dimension and the output dimension
+        self.act_fn = nn.SiLU() # create the activation function
+
+    def forward(self, x):
+        gated = self.gate_proj(x) # apply the gate projection to the input
+        hidden = self.up_proj(x) # apply the up projection to the input
+        return self.down_proj(self.act_fn(gated * hidden)) # apply the activation function to the gated and hidden values and then apply the down projection
+    
+class LlamaAttention(nn.Module):
+    def __init__(self, dim, num_heads=8):
+        super().__init__()
+        self.num_heads = num_heads
+        self.head_dim = dim // num_heads
+
+        self.q_proj = nn.Linear(dim, dim, bias=False)
+        self.k_proj = nn.Linear(dim, dim, bias=False)
+        self.v_proj = nn.Linear(dim, dim, bias=False)
+        self.o_proj = nn.Linear(dim, dim, bias=False)
+
+    def forward(self, x):
+        batch_size, seq_len, dim = x.size() # [batch_size, seq_len, dim] -> [4, 128, 576]
+        q = self.q_proj(x)
+        k = self.k_proj(x)
+        v = self.v_proj(x)
+
+
+        # Split heads
+        q = q.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2) # [batch_size, num_heads, seq_len, head_dim]
+        k = k.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        v = v.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+
+        # Scaled dot-product attention
+        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
+        attention = torch.softmax(scores, dim=-1)
+        context = torch.matmul(attention, v)
+
+        # Combine heads
+        context = context.transpose(1, 2).reshape(batch_size, seq_len, dim)
+        return self.o_proj(context)
+
+class LlamaDecoderLayer(nn.Module):
+    def __init__(self, dim, hidden_dim, num_heads):
+        super().__init__()
+        self.self_attn = LlamaAttention(dim, num_heads)
+        self.mlp = LlamaMLP(dim, hidden_dim)
+        self.input_layernorm = LlamaRMSNorm(dim)
+        self.post_attention_layernorm = LlamaRMSNorm(dim)
+
+    def forward(self, x):
+        residual = x
+        x = self.input_layernorm(x)
+        x = self.self_attn(x)
+        x = x + residual
+
+        residual = x
+        x = self.post_attention_layernorm(x)
+        x = self.mlp(x)
+        x = x + residual
+        return x
+
+
+class LlamaModel(nn.Module):
+    def __init__(self, vocab_size, dim, num_layers, hidden_dim, num_heads):
+        super().__init__()
+        self.embed_tokens = nn.Embedding(vocab_size, dim)
+        self.layers = nn.ModuleList([
+            LlamaDecoderLayer(dim, hidden_dim, num_heads) for _ in range(num_layers)
+        ])
+        self.norm = LlamaRMSNorm(dim)
+        self.rotary_emb = LlamaRotaryEmbedding(dim)
+
+    def forward(self, x):
+        x = self.embed_tokens(x)
+        for layer in self.layers:
+            x = layer(x)
+        return self.norm(x)
+
+class LlamaForCausalLM(nn.Module):
+    def __init__(self, vocab_size, dim, num_layers, hidden_dim, num_heads):
+        super().__init__()
+        self.model = LlamaModel(vocab_size, dim, num_layers, hidden_dim, num_heads)
+        self.lm_head = nn.Linear(dim, vocab_size, bias=False)
+
+    def forward(self, x):
+        x = self.model(x)
+        return self.lm_head(x)
+
+def get_model(tokenizer):
+    vocab_size = tokenizer.vocab_size  # Use actual tokenizer vocab size
+    return LlamaForCausalLM(
+        vocab_size=vocab_size,
+        dim=576,
+        num_layers=30,
+        hidden_dim=1536,
+        num_heads=8
     )
 
-    tokenizer.train(data_files, trainer)
+# model = get_model()
+# print(model)
 
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+import torch
+from torch.utils.data import DataLoader
+from datasets import load_dataset
+from transformers import AutoTokenizer, get_scheduler
+from torch.optim import AdamW
+#import wandb
+import os
+#from model import get_model
 
-    tokenizer.save(os.path.join(save_path, "tokenizer.json"))
-    return tokenizer
+#wandb.init(project="smollm-training", name="llama-smollm-corpus")
 
-# Function to save a checkpoint
-def save_checkpoint(model, optimizer, scheduler, current_batch, checkpoint_path):
-    checkpoint = {
-        'model_state_dict': model.state_dict(),
-        'optimizer_state_dict': optimizer.state_dict(),
-        'scheduler_state_dict': scheduler.state_dict(),
-        'current_batch': current_batch
-    }
-    torch.save(checkpoint, checkpoint_path)
-    #print(f"Checkpoint saved at batch {current_batch} to {checkpoint_path}")
+BATCH_SIZE = 8
+SEQ_LEN = 256
+LEARNING_RATE = 1e-4
+EPOCHS = 5
+WARMUP_STEPS = 1000
+GRADIENT_CLIP_VAL = 1.0
+CHECKPOINT_DIR = "checkpoints"
+os.makedirs(CHECKPOINT_DIR, exist_ok=True)
+DEVICE = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps" if torch.backends.mps.is_available() else "cpu"
+)
 
-# Function to load a checkpoint
-def load_checkpoint(checkpoint_path, model, optimizer, scheduler):
-    if os.path.exists(checkpoint_path):
-        checkpoint = torch.load(checkpoint_path, map_location=torch.device(device))
-        model.load_state_dict(checkpoint['model_state_dict'])
-        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
-        current_batch = checkpoint['current_batch']
-        print(f"Checkpoint loaded from {checkpoint_path} at batch {current_batch}")
-        return current_batch
-    else:
-        print(f"No checkpoint found at {checkpoint_path}, starting fresh training.")
-        return 0
 
-class DataLoaderLite:
-    def __init__(self, tokenizer, data_files, B, T):
-        self.B = B
-        self.T = T
-
-        self.tokenizer = tokenizer
-
-        # Load and tokenize data
-        self.data = []
-        for file_path in data_files:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                text = f.read()
-                tokens = tokenizer.encode(text).ids
-                self.data.extend(tokens)
-
-        print(f'loaded {len(self.data)} tokens')
-        print(f'1 epoch = {len(self.data) // (B * T)} batches')
-
-        # state
-        self.current_position = 0
-    
-    def next_batch(self):
-        B, T = self.B, self.T
-        buf = self.data[self.current_position: self.current_position + B * T + 1]
-        
-        # Convert list to tensor
-        buf = torch.tensor(buf, dtype=torch.long)
-
-        x = buf[:-1].view(B, T)  # inputs
-        y = buf[1:].view(B, T)   # targets
-        
-        # advance the position in the tensor
-        self.current_position += B * T
-
-        # if loading the next batch would be out of bounds, reset
-        if self.current_position + (B * T + 1) > len(self.data):
-            self.current_position = 0
-
-        return x, y
-
-device = 'cpu'
-if torch.cuda.is_available():
-    device = 'cuda'
-elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-    device = "mps"
-print(f"using device: {device}")
-
-# SEED
-torch.manual_seed(1337)
-if torch.cuda.is_available():
-    torch.cuda.manual_seed(1337)
-
-data_files = ["/kaggle/input/input1-txt/input.txt"]  # Replace with your text file paths
-vocab_size = 49152
-tokenizer_save_path = "/kaggle/working/"
-
-# Train a new tokenizer if not already trained
-if not os.path.exists(os.path.join(tokenizer_save_path, "tokenizer.json")):
-    tokenizer = train_tokenizer(data_files, vocab_size, tokenizer_save_path)
-else:
-    tokenizer = Tokenizer.from_file(os.path.join(tokenizer_save_path, "tokenizer.json"))
-
-batch_size = 16
-tokens_per_batch = 256
-
-train_loader = DataLoaderLite(tokenizer,data_files,B = batch_size, T = tokens_per_batch)
-
-# Function to generate predictions
-def generate_predictions(model, tokenizer, text, max_tokens=100, top_k=50):
+def generate_text(
+    model, tokenizer, prompt, max_length=50, temperature=0.7, top_k=50, device=DEVICE
+):
     model.eval()
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+
     with torch.no_grad():
-        input_ids = tokenizer.encode(text).ids
-        input_ids = torch.tensor(input_ids, dtype=torch.long, device=device).unsqueeze(0)  # Add batch dimension
+        for _ in range(max_length):
+            outputs = model(input_ids)
+            next_token_logits = outputs[:, -1, :] / temperature
 
-        generated_ids = input_ids
-        for _ in range(max_tokens):
-            outputs = model(generated_ids)
-            next_token_logits = outputs[:, -1, :]  # Get logits for the last token
-            probs = torch.nn.functional.softmax(next_token_logits, dim=-1)
+            # Apply top-k sampling
+            top_k_logits, top_k_indices = torch.topk(next_token_logits, top_k, dim=-1)
+            probs = torch.softmax(top_k_logits, dim=-1)
 
-            if top_k is not None:
-                # Top-k sampling
-                top_k_probs, top_k_indices = torch.topk(probs, top_k, dim=-1)
-                next_token = top_k_indices.gather(
-                    dim=-1, index=torch.multinomial(top_k_probs, num_samples=1)
-                )
-            else:
-                # Greedy decoding
-                next_token = torch.argmax(probs, dim=-1, keepdim=True)
+            # Sample from the filtered distribution
+            next_token_idx = torch.multinomial(probs, num_samples=1)
+            next_token = top_k_indices[0, next_token_idx[0]]
 
-            # Ensure next_token has the correct shape for concatenation
-            next_token = next_token.view(1, 1)  # (batch_size=1, sequence_length=1)
-
-            # Concatenate next_token with generated_ids
-            generated_ids = torch.cat([generated_ids, next_token], dim=1)
-
-            # Stop if end-of-sequence token is generated
-            if next_token.item() == tokenizer.token_to_id("[SEP]"):
+            if next_token.item() == tokenizer.eos_token_id:
                 break
 
-        generated_text = tokenizer.decode(generated_ids.squeeze().tolist())
+            input_ids = torch.cat([input_ids, next_token.unsqueeze(0)], dim=1)
+
+    generated_text = tokenizer.decode(input_ids[0], skip_special_tokens=True)
     model.train()
     return generated_text
 
 
+def save_checkpoint(model, optimizer, scheduler, epoch, step, loss, path):
+    torch.save(
+        {
+            "epoch": epoch,
+            "model_state_dict": model.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(),
+            "scheduler_state_dict": scheduler.state_dict() if scheduler else None,
+            "loss": loss,
+            "step": step,
+        },
+        path,
+    )
 
-config["vocab_size"] = len(tokenizer.get_vocab())
-print(f"New Vocab Size is: {config['vocab_size']}")
+
+def load_checkpoint(path, model, optimizer, scheduler):
+    if os.path.exists(path):
+        # path = './checkpoints/checkpoint_step_5000.pt'
+        # print(f"Loading checkpoint from {path}")
+        checkpoint = torch.load(path, weights_only=True)
+
+        model.load_state_dict(checkpoint["model_state_dict"])
+        optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+        if scheduler and checkpoint["scheduler_state_dict"]:
+            scheduler.load_state_dict(checkpoint["scheduler_state_dict"])
+        return checkpoint["epoch"], checkpoint["step"]
+    return 0, 0
+
+
+def count_parameters(model):
+    """Count the number of trainable parameters in the model"""
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
+
+
+tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/cosmo2-tokenizer")
+if tokenizer.pad_token is None:
+    if tokenizer.eos_token:
+        tokenizer.pad_token = tokenizer.eos_token
+    else:
+        tokenizer.add_special_tokens({"pad_token": "[PAD]"})
+        tokenizer.resize_token_embeddings(len(tokenizer))
+
+dataset = load_dataset(
+    "HuggingFaceTB/smollm-corpus", "cosmopedia-v2", streaming=True, split="train"
+)
+
+
+def tokenize_function(examples):
+    return tokenizer(
+        examples["text"], truncation=True, max_length=SEQ_LEN, padding="max_length"
+    )
+
+
+tokenized_dataset = dataset.map(tokenize_function, batched=True)
+
+
+def collate_fn(batch):
+    input_ids = torch.tensor([item["input_ids"] for item in batch], dtype=torch.long)
+    attention_mask = torch.tensor(
+        [item["attention_mask"] for item in batch], dtype=torch.long
+    )
+    labels = input_ids.clone()
+    return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+
+
+train_loader = DataLoader(
+    tokenized_dataset, batch_size=BATCH_SIZE, collate_fn=collate_fn
+)
+
 # Initialize model, optimizer, and scheduler
-model = TransformerModel(config)
-model.to(device)
+model = get_model(tokenizer)
+model.to(DEVICE)
 
-def initialize_weights(m):
-    if isinstance(m, torch.nn.Linear) or isinstance(m, torch.nn.Embedding):
-        torch.nn.init.xavier_uniform_(m.weight)
+# Print model parameters
+# total_params = count_parameters(model)
+# print(f"\nModel Statistics:")
+# print(f"Total Parameters: {total_params:,}")
+# print(f"Model Size: {total_params * 4 / (1024 * 1024):.2f} MB")  # Assuming float32 (4 bytes)
+# print(f"Device: {DEVICE}")
+# print(f"Batch Size: {BATCH_SIZE}")
+# print(f"Sequence Length: {SEQ_LEN}")
+# print(f"Learning Rate: {LEARNING_RATE}")
+# print("-" * 50 + "\n")
 
-model.apply(initialize_weights)
-
-# Print the model architecture
-print(model)
-
-# Calculate and print the total number of trainable parameters
-trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
-print(f"Total trainable parameters: {trainable_params}")
-
-criterion = torch.nn.CrossEntropyLoss()
-optimizer = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0.01)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=5, gamma=0.65)
-
-# Define checkpoint path
-checkpoint_path = "/kaggle/working/checkpoint.pth"
+optimizer = AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=0.01)
+lr_scheduler = torch.optim.lr_scheduler.OneCycleLR(
+    optimizer,
+    max_lr=LEARNING_RATE,
+    total_steps=10000,
+    pct_start=0.1,
+    anneal_strategy="cos",
+    cycle_momentum=False,
+)
 
 # Load checkpoint if exists
-start_batch = load_checkpoint(checkpoint_path, model, optimizer, scheduler)
+start_epoch, global_step = load_checkpoint(
+    f"{CHECKPOINT_DIR}/latest_checkpoint.pt", model, optimizer, lr_scheduler
+)
 
-# Fixed text for predictions
-fixed_text = "He that will give good words to thee will flatter"
+# Sample prompts for evaluation
+sample_prompts = [
+    "The future of artificial intelligence",
+    "The most important thing in life",
+    "The best way to learn programming",
+]
 
-# Training loop with tqdm progress bar
-total_batches = 5000
-checkpoint_interval = len(train_loader.data) // (batch_size * tokens_per_batch)
+model.train()
+try:
+    for epoch in range(start_epoch, EPOCHS):
+        print(f"Epoch {epoch + 1}/{EPOCHS}")
+        for step, batch in enumerate(train_loader, start=global_step):
+            # Move batch to device
+            input_ids = batch["input_ids"].to(DEVICE)
+            attention_mask = batch["attention_mask"].to(DEVICE)
+            labels = batch["labels"].to(DEVICE)
 
-for i in range(start_batch, total_batches, checkpoint_interval):
-    loss_list = []
-    start_time = time.time()
-    with tqdm(total=checkpoint_interval, desc=f"Training Batches {i}-{i+checkpoint_interval-1}", unit="batch") as pbar:
-        for batch_idx in range(checkpoint_interval):
-            global_batch = i + batch_idx
-            if global_batch >= total_batches:
-                break
+            # Forward pass
+            outputs = model(input_ids)
+            logits = outputs.view(-1, tokenizer.vocab_size)
 
-            x, y = train_loader.next_batch()
-            x, y = x.to(device), y.to(device)
-            pred = model(x)
+            # Calculate loss with label smoothing
+            loss = torch.nn.functional.cross_entropy(
+                logits, labels.view(-1), label_smoothing=0.1  # Add label smoothing
+            )
 
-            # Reshape predictions and targets for loss computation
-            pred = pred.view(-1, pred.size(-1))  # Flatten predictions
-            y = y.view(-1)  # Flatten targets
-
-            # Compute loss
-            loss = criterion(pred, y)
-
-            # Backward pass and optimization
+            # Backward pass with gradient clipping
             optimizer.zero_grad()
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), GRADIENT_CLIP_VAL)
             optimizer.step()
+            lr_scheduler.step()
 
-            # Update progress bar with current loss
-            pbar.set_postfix(loss=loss.item())
-            pbar.update(1)
-            loss_list.append(loss.item())
+            # Logging
+            if step % 10 == 0:
+                print(
+                    f"Step {step}, Loss: {loss.item():.4f}, LR: {lr_scheduler.get_last_lr()[0]:.2e}"
+                )
+                #wandb.log(
+                #    {
+                #        "loss": loss.item(),
+                #        "lr": lr_scheduler.get_last_lr()[0],
+                #        "step": step,
+                #        "epoch": epoch,
+                #    }
+                #)
 
-            # Generate text and save checkpoint at the last batch of the interval
-            if (batch_idx + 1) == checkpoint_interval or global_batch == total_batches - 1:
-                generated_text = generate_predictions(model, tokenizer, fixed_text, max_tokens=100)
-                print(f"\nGenerated text at batch {global_batch}: {generated_text}")
-                save_checkpoint(model, optimizer, scheduler, global_batch, checkpoint_path)
+            # Save checkpoint every 100 steps
+            #if step % 100 == 0:
+            #    save_checkpoint(
+            #        model,
+            #        optimizer,
+            #        lr_scheduler,
+            #        epoch,
+            #        step,
+            #        loss.item(),
+            #        f"{CHECKPOINT_DIR}/latest_checkpoint.pt",
+            #    )
 
-    # Scheduler step
-    scheduler.step()
-    elapsed_time = time.time() - start_time
-    epoch_loss = sum(loss_list) / len(loss_list)
-    print(f"Loss: {epoch_loss:.4f}, Time: {elapsed_time:.2f}s")
+                # Also save numbered checkpoint every 1000 steps
+                if step % 1000 == 0:
+                    save_checkpoint(
+                        model,
+                        optimizer,
+                        lr_scheduler,
+                        epoch,
+                        step,
+                        loss.item(),
+                        f"{CHECKPOINT_DIR}/checkpoint_step.pt",
+                    )
+
+            # Generate sample text every 500 steps with different temperatures
+            if step % 500 == 0:
+                print("\n=== Generating Sample Texts ===")
+                for temp in [0.7, 1.0]:  # Try different temperatures
+                    for prompt in sample_prompts:
+                        generated = generate_text(
+                            model,
+                            tokenizer,
+                            prompt,
+                            temperature=temp,
+                            max_length=100,  # Increased max length
+                        )
+                        print(f"\nPrompt: {prompt}")
+                        print(f"Temperature: {temp}")
+                        print(f"Generated: {generated}")
+                        #wandb.log(
+                        #    {
+                        #        f"generated_text_temp_{temp}_{prompt[:20]}": wandb.Html(
+                        #            generated
+                        #        )
+                        #    }
+                        #)
+                print("\n=== End of Samples ===\n")
+                model.train()
+
+        # Save epoch checkpoint
+        #save_checkpoint(
+        #    model,
+        #    optimizer,
+        #    lr_scheduler,
+        #    epoch,
+        #    step,
+        #    loss.item(),
+        #    f"{CHECKPOINT_DIR}/checkpoint_epoch.pt",
+        #)
+
+except KeyboardInterrupt:
+    print("\nTraining interrupted! Saving checkpoint...")
+    save_checkpoint(
+        model,
+        optimizer,
+        lr_scheduler,
+        epoch,
+        step,
+        loss.item(),
+        f"{CHECKPOINT_DIR}/interrupted_checkpoint.pt",
+    )
+
+print("Training complete!")
+#wandb.finish()

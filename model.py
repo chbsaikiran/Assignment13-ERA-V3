@@ -1,132 +1,134 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import math
 
-class CausalSelfAttention(nn.Module):
-
-    def __init__(self, config):
+# RMSNorm is a normalization technique that normalizes the input by dividing by the square root of the variance plus a small number to prevent division by zero
+class LlamaRMSNorm(nn.Module):
+    def __init__(self, hidden_size, eps=1e-5): # the number of features/dimensions/embeddings in the input, eps is a small number to prevent division by zero
         super().__init__()
-        assert config['hidden_size'] % config['num_attention_heads'] == 0
-        # key, query, value projections for all heads, but in a batch
-        self.c_attn = nn.Linear(config['hidden_size'], 3 * config['hidden_size'])
-        # output projection
-        self.c_proj = nn.Linear(config['hidden_size'], config['hidden_size'])
-        self.c_proj.NANGPT_SCALE_INIT = 1
-        # regularization
-        self.num_attention_heads = config['num_attention_heads']
-        self.hidden_size = config['hidden_size']
-        self.register_buffer("bias", torch.tril(torch.ones(config['max_position_embeddings'], config['max_position_embeddings'])).view(1, 1, config['max_position_embeddings'], config['max_position_embeddings']))
+        self.weight = nn.Parameter(torch.ones(hidden_size)) # weight is a learnable parameter that scales the input
+        self.eps = eps
 
     def forward(self, x):
-        B, T, C = x.size() # batch size, sequence length, embedding dimensionality (hidden_size)
-        # calculate query, key, values for all heads in batch and move head forward to be the batch dim
-        # nh is "number of heads", hs is "head size", and C (number of channels) = nh * hs
-        # e.g. in GPT-2 (124M), num_attention_heads=12, hs=64, so nh*hs=C=768 channels in the Transformer
-        qkv = self.c_attn(x)
-        q, k, v = qkv.split(self.hidden_size, dim=2)
-        k = k.view(B, T, self.num_attention_heads, C // self.num_attention_heads).transpose(1, 2) # (B, nh, T, hs)
-        q = q.view(B, T, self.num_attention_heads, C // self.num_attention_heads).transpose(1, 2) # (B, nh, T, hs)
-        v = v.view(B, T, self.num_attention_heads, C // self.num_attention_heads).transpose(1, 2) # (B, nh, T, hs)
+        norm = x.pow(2).mean(-1, keepdim=True).sqrt() + self.eps # compute the norm of the input
+        return x / norm * self.weight # normalize the input by dividing by the norm and scale it by the weight parameter
 
-        att = (q @ k.transpose(-2, -1)) * (1.0 / math.sqrt(k.size(-1)))
-        att = att.masked_fill(self.bias[:, :, :T, :T] == 0, float('-inf'))
-        att = F.softmax(att, dim=-1)
-        y = att @ v # (B, nh, T, T) x (B, nh, T, hs) -> (B, nh, T, hs)
 
-        y = y.transpose(1, 2).contiguous().view(B, T, C) # re-assemble all head outputs side by side
-        # output projection
-        y = self.c_proj(y)
-        return y
+# RotaryEmbedding is a technique that rotates the input by a learnable angle
+class LlamaRotaryEmbedding(nn.Module):
+    def __init__(self, dim, base=10000, device=None): # dim is the number of features/dimensions/embeddings in the input, base is a base number for the frequency, device is the device to store the buffer
+        super().__init__()
+        inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2, device=device).float() / dim)) # compute the inverse frequency
+        self.register_buffer("inv_freq", inv_freq) # register the inverse frequency as a buffer
 
-class TransformerModel(nn.Module):
-    def __init__(self, config):
-        super(TransformerModel, self).__init__()
-        
-        # Load model configuration from YAML
-        self.hidden_size = config['hidden_size']
-        self.vocab_size = config['vocab_size']
-        self.num_hidden_layers = config['num_hidden_layers']
-        self.num_attention_heads = config['num_attention_heads']
-        self.intermediate_size = config['intermediate_size']
-        self.max_position_embeddings = config['max_position_embeddings']
-        self.rms_norm_eps = config['rms_norm_eps']
-        self.tie_word_embeddings = config['tie_word_embeddings']
+    def forward(self, x, seq_len):
+        seq_len = seq_len.to(x.device) # convert seq_len to the device of the input 
+        t = torch.arange(seq_len, device=x.device) # create a tensor of the sequence length
+        freqs = torch.einsum("i,j->ij", t, self.inv_freq) # compute the frequency by taking the dot product of the sequence length and the inverse frequency
+        emb = torch.cat((freqs, freqs), dim=-1) # concatenate the frequency with itself
+        return emb
 
-        # Embedding layers
-        self.token_embeddings = nn.Embedding(self.vocab_size, self.hidden_size)
-        self.position_embeddings = nn.Embedding(self.max_position_embeddings, self.hidden_size)
-
-        # Transformer layers
-        self.layers = nn.ModuleList([
-            TransformerLayer(config,self.hidden_size, self.num_attention_heads, self.intermediate_size, self.rms_norm_eps)
-            for _ in range(self.num_hidden_layers)
-        ])
-
-        # Output layer
-        self.lm_head = nn.Linear(self.hidden_size, self.vocab_size)
-        if self.tie_word_embeddings:
-            self.lm_head.weight = self.token_embeddings.weight
-
-    def forward(self, input_ids):
-        # Input embeddings
-        seq_length = input_ids.size(1)
-        position_ids = torch.arange(0, seq_length, dtype=torch.long, device=input_ids.device)
-        position_ids = position_ids.unsqueeze(0).expand_as(input_ids)
-
-        x = self.token_embeddings(input_ids) + self.position_embeddings(position_ids)
-
-        # Pass through Transformer layers
-        for layer in self.layers:
-            x = layer(x)
-
-        # Final linear layer
-        logits = self.lm_head(x)
-        return logits
-
-class TransformerLayer(nn.Module):
-    def __init__(self, config,hidden_size, num_attention_heads, intermediate_size, rms_norm_eps):
-        super(TransformerLayer, self).__init__()
-        
-        self.hidden_size = hidden_size
-        self.num_attention_heads = num_attention_heads
-        self.intermediate_size = intermediate_size
-        self.head_dim = hidden_size // num_attention_heads
-
-        assert hidden_size % num_attention_heads == 0, "hidden_size must be divisible by num_attention_heads"
-
-        # Self-attention
-        self.self_attn = CausalSelfAttention(config)
-        self.ln_1 = nn.LayerNorm(hidden_size)
-
-        # Feedforward layers
-        self.linear1 = nn.Linear(hidden_size, intermediate_size)
-        self.activation = F.silu  # Activation function (SiLU)
-        self.linear2 = nn.Linear(intermediate_size, hidden_size)
-        self.linear2.NANOGPT_SCALE_INIT = 1
-
-        # Normalization
-        self.norm1 = nn.LayerNorm(hidden_size, eps=rms_norm_eps)
+class LlamaMLP(nn.Module):
+    def __init__(self, dim, hidden_dim):
+        super().__init__()
+        self.gate_proj = nn.Linear(dim, hidden_dim, bias=False) # create the gate projection layer with the input dimension and the hidden dimension
+        self.up_proj = nn.Linear(dim, hidden_dim, bias=False) # create the up projection layer with the input dimension and the hidden dimension
+        self.down_proj = nn.Linear(hidden_dim, dim, bias=False) # create the down projection layer with the hidden dimension and the output dimension
+        self.act_fn = nn.SiLU() # create the activation function
 
     def forward(self, x):
-        # Self-attention block
-        attn_output = self.self_attn(self.ln_1(x))
-        x = x + attn_output  # Residual connection
+        gated = self.gate_proj(x) # apply the gate projection to the input
+        hidden = self.up_proj(x) # apply the up projection to the input
+        return self.down_proj(self.act_fn(gated * hidden)) # apply the activation function to the gated and hidden values and then apply the down projection
+    
+class LlamaAttention(nn.Module):
+    def __init__(self, dim, num_heads=8):
+        super().__init__()
+        self.num_heads = num_heads
+        self.head_dim = dim // num_heads
 
-        # Feedforward block
-        ff_output = self.linear2(self.activation(self.linear1(self.norm1(x))))
-        x = x + ff_output  # Residual connection
+        self.q_proj = nn.Linear(dim, dim, bias=False)
+        self.k_proj = nn.Linear(dim, dim, bias=False)
+        self.v_proj = nn.Linear(dim, dim, bias=False)
+        self.o_proj = nn.Linear(dim, dim, bias=False)
 
+    def forward(self, x):
+        batch_size, seq_len, dim = x.size() # [batch_size, seq_len, dim] -> [4, 128, 576]
+        q = self.q_proj(x)
+        k = self.k_proj(x)
+        v = self.v_proj(x)
+
+
+        # Split heads
+        q = q.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2) # [batch_size, num_heads, seq_len, head_dim]
+        k = k.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        v = v.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+
+        # Scaled dot-product attention
+        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
+        attention = torch.softmax(scores, dim=-1)
+        context = torch.matmul(attention, v)
+
+        # Combine heads
+        context = context.transpose(1, 2).reshape(batch_size, seq_len, dim)
+        return self.o_proj(context)
+
+class LlamaDecoderLayer(nn.Module):
+    def __init__(self, dim, hidden_dim, num_heads):
+        super().__init__()
+        self.self_attn = LlamaAttention(dim, num_heads)
+        self.mlp = LlamaMLP(dim, hidden_dim)
+        self.input_layernorm = LlamaRMSNorm(dim)
+        self.post_attention_layernorm = LlamaRMSNorm(dim)
+
+    def forward(self, x):
+        residual = x
+        x = self.input_layernorm(x)
+        x = self.self_attn(x)
+        x = x + residual
+
+        residual = x
+        x = self.post_attention_layernorm(x)
+        x = self.mlp(x)
+        x = x + residual
         return x
 
-# Load model configuration from YAML-like dictionary (parsed from YAML)
-config = {
-    "hidden_size": 576,
-    "vocab_size": 49152,
-    "num_hidden_layers": 30,
-    "num_attention_heads": 9,
-    "intermediate_size": 1536,
-    "max_position_embeddings": 2048,
-    "rms_norm_eps": 1e-5,
-    "tie_word_embeddings": True
-}
+
+class LlamaModel(nn.Module):
+    def __init__(self, vocab_size, dim, num_layers, hidden_dim, num_heads):
+        super().__init__()
+        self.embed_tokens = nn.Embedding(vocab_size, dim)
+        self.layers = nn.ModuleList([
+            LlamaDecoderLayer(dim, hidden_dim, num_heads) for _ in range(num_layers)
+        ])
+        self.norm = LlamaRMSNorm(dim)
+        self.rotary_emb = LlamaRotaryEmbedding(dim)
+
+    def forward(self, x):
+        x = self.embed_tokens(x)
+        for layer in self.layers:
+            x = layer(x)
+        return self.norm(x)
+
+class LlamaForCausalLM(nn.Module):
+    def __init__(self, vocab_size, dim, num_layers, hidden_dim, num_heads):
+        super().__init__()
+        self.model = LlamaModel(vocab_size, dim, num_layers, hidden_dim, num_heads)
+        self.lm_head = nn.Linear(dim, vocab_size, bias=False)
+
+    def forward(self, x):
+        x = self.model(x)
+        return self.lm_head(x)
+
+def get_model(tokenizer):
+    vocab_size = tokenizer.vocab_size  # Use actual tokenizer vocab size
+    return LlamaForCausalLM(
+        vocab_size=vocab_size,
+        dim=576,
+        num_layers=30,
+        hidden_dim=1536,
+        num_heads=8
+    )
+
+# model = get_model()
+# print(model)
