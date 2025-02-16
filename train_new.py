@@ -5,9 +5,10 @@ from tqdm import tqdm
 import math
 import os
 from numpy import arange
+import torch.nn.functional as F
 
 # Import the LlamaModel from model_manual.py
-#from model_manual import LlamaModel
+from model_manual import LlamaModel
 
 # Function to generate text from the model
 def generate_text(model, input_text, vocab, id_to_token, device, max_length=50, temperature=0.7):
@@ -75,6 +76,21 @@ def collate_fn(batch):
     attention_masks = torch.stack([item[1] for item in batch])
     return input_ids, attention_masks
 
+
+# Random initialization
+def init_weights(m):
+    if isinstance(m, (torch.nn.Linear, torch.nn.Embedding)):
+        torch.nn.init.xavier_uniform_(m.weight)
+        if hasattr(m, 'bias') and m.bias is not None:
+            torch.nn.init.zeros_(m.bias)
+
+def print_model_parameters(model):
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"Total parameters: {total_params:,}\n")
+
+    for name, param in model.named_parameters():
+        print(f"{name}: {param.numel():,}")
+
 def train_model(config, train_file, steps, output_dir):
     tokenizer = AutoTokenizer.from_pretrained("HuggingFaceTB/cosmo2-tokenizer")
 
@@ -95,12 +111,17 @@ def train_model(config, train_file, steps, output_dir):
     #print(padded_chunks[2])
     #print(padded_chunks[3])
 
-    model = LlamaModel(config).to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+    model = LlamaModel(config)
+    model.apply(init_weights)
+    for p in model.parameters():
+        p.data.clamp_(-1e5, 1e5)
+    print_model_parameters(model)
+    model.to(torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
     model.device = next(model.parameters()).device
     optimizer = torch.optim.AdamW(model.parameters(), lr=5e-5)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.9)
     
-    loss_fn = torch.nn.CrossEntropyLoss()
+    #loss_fn = torch.nn.CrossEntropyLoss()
     
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -120,35 +141,44 @@ def train_model(config, train_file, steps, output_dir):
             attenttion_list.append(input_tokens[2*i+1])
 
         input_ids = torch.stack(input_list)
-        inputs = input_ids[:, :-1]  # Keep batch dim and remove last token
-        targets = input_ids[:, 1:]  # Keep batch dim and remove first token
+        inputs = input_ids[:, :-2]  # Keep batch dim and remove last token
+        targets = input_ids[:, 1:-1]  # Keep batch dim and remove first token
         attention_mask = torch.stack(attenttion_list)
-        attentions = attention_mask[:, :-1]
+        attentions = attention_mask[:, :-2]
         device = next(model.parameters()).device
         inputs, attentions = inputs.to(device), attentions.to(device)
-        positions = torch.arange(0, inputs.size(1), dtype=torch.long).unsqueeze(0).repeat(inputs.size(0), 1).to(device)
+        #positions = torch.arange(0, inputs.size(1), dtype=torch.long).unsqueeze(0).repeat(inputs.size(0), 1).to(device)
         #print(inputs.shape)
         #print(attentions.shape)
         #print(positions.shape)
     
         optimizer.zero_grad()
-        logits = model(inputs, attentions,position_ids=positions)
+        logits = model(inputs, attentions)
     
         labels = targets.to(device)  # Move labels to the same device as the model and inputs
         # Create a mask based on counts
         mask = attentions.bool()  # The attention mask already has the correct shape
+        logits = logits.transpose(0, 1)  # Align logits to (batch_size, seq_len, vocab_size)
         logits_masked = logits[mask].contiguous().view(-1, config.vocab_size)
         labels_masked = labels[mask].contiguous().view(-1)
+        probabilities = F.softmax(logits_masked, dim=-1)
+        max_prob_indices = torch.argmax(probabilities, dim=-1)
+        print(max_prob_indices[:10])
+        print(labels_masked[:10])
         
-        loss = loss_fn(logits_masked, labels_masked)
+        if mask.sum() == 0:
+            raise ValueError("Attention mask sums to zero!")
+
+        loss_cross_entropy = F.cross_entropy(logits_masked, labels_masked)
+        #loss = loss_fn(logits_masked, labels_masked)
     
-        loss.backward()
+        loss_cross_entropy.backward()
         torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
         optimizer.step()
         scheduler.step()
     
         progress_bar.update(1)
-        progress_bar.set_postfix(loss=loss.item())
+        progress_bar.set_postfix(loss=loss_cross_entropy.item())
     
         #if step % 10 == 0:
         #    torch.save({
@@ -173,13 +203,16 @@ if __name__ == "__main__":
     config.num_layers = 30
     config.hidden_size = 576
     config.num_attention_heads = 8
-    config.rms_norm_eps = 1e-5
+    config.rms_norm_eps = 1.0e-05
     config.max_position_embeddings = 2048
     config.rope_theta = 500000.0
     config.hidden_act = False
     config.intermediate_size = 1536
+    config.rope_interleaved = False
+    #config.rope_scaling = null
+    config.rope_theta = 10000.0
 
     BATCH_SIZE = 8
-    SEQ_LEN = 256
+    SEQ_LEN = 512
 
     train_model(config, '/kaggle/input/assign13-era-v3-dataset/input.txt', 1000, './output')

@@ -2,29 +2,29 @@ import torch
 from torch import Tensor,nn
 from typing import Dict, List, Optional, Union
 
+import dataclasses
+
+
+@dataclasses.dataclass
+class TensorPointer:
+    """Dataclass specifying from which rank we need to query a tensor from in order to access data"""
+
+    # Needed to understand from which rank to get the tensor
+    # TODO @thomasw21: Maybe add which group it belongs to as well? Typically this is highly correlated to `p2p.pg`
+    group_rank: int
+    # TODO @thomasw21: Maybe add a tag (torch.distributed.send/recv allow for tagging)
+
 class TritonRMSNorm(nn.Module):
     def __init__(self, hidden_size, eps=1e-5, device=None, dtype=None):
         super().__init__()
         self.eps = eps
         self.weight = nn.Parameter(torch.ones(hidden_size, device=device, dtype=dtype))
+        self.register_parameter("bias", None)
+        self.reset_parameters()
 
-    def forward(self, input, residual=None, dropout_p=0.0, prenorm=False, residual_in_fp32=False, return_dropout_mask=False):
-        if prenorm and residual is not None:
-            input = input + residual.float() if residual_in_fp32 else input + residual
+    def reset_parameters(self):
+        nn.init.ones_(self.weight)
 
-        variance = input.pow(2).mean(-1, keepdim=True)
-        input = input / torch.sqrt(variance + self.eps)
-        output = self.weight * input
-
-        if dropout_p > 0.0:
-            dropout_mask = torch.bernoulli(torch.full_like(output, 1 - dropout_p)) / (1 - dropout_p)
-            output = output * dropout_mask
-            if return_dropout_mask:
-                return output, dropout_mask
-
-        return output
-
-class TritonLayerNorm(nn.LayerNorm):
     def forward(
         self, input, residual=None, dropout_p=0.0, prenorm=False, residual_in_fp32=False, return_dropout_mask=False
     ):
@@ -33,95 +33,114 @@ class TritonLayerNorm(nn.LayerNorm):
         return layer_norm_fn(
             input,
             self.weight,
-            self.bias,
+            None,
             residual=residual,
             eps=self.eps,
             dropout_p=dropout_p,
             prenorm=prenorm,
             residual_in_fp32=residual_in_fp32,
-            is_rms_norm=False,
+            is_rms_norm=True,
             return_dropout_mask=return_dropout_mask,
         )
 
-class LlamaRotaryEmbedding(nn.Module):
-    def __init__(self, dim: int, end: int, theta: float = 500000.0):
+class RotaryEmbedding(nn.Module):
+    def __init__(self, dim: int, end: int, theta: float = 10000.0):
         super().__init__()
+        assert dim % 2 == 0
         self.dim = dim
         self.end = end
         self.theta = theta
-        self.init_rotary_embeddings()
+        self.register_buffer(
+            "freqs_cis",
+            self._compute_freqs(end, dim, theta),
+            persistent=False,
+        )
 
-    def init_rotary_embeddings(self):
-        inv_freq = 1.0 / (self.theta ** (torch.arange(0, self.dim, 2, dtype=torch.float) / self.dim))
-        self.register_buffer("inv_freq", inv_freq, persistent=False)
+    def _compute_freqs(self, end, dim, theta):
+        freqs = 1.0 / (theta ** (torch.arange(0, dim, 2, dtype=torch.float) / dim))
+        t = torch.arange(end)
+        freqs = torch.outer(t, freqs)
+        complex_freqs = torch.polar(torch.ones_like(freqs), freqs)
+        return torch.view_as_real(complex_freqs)
 
-    @torch.no_grad()
-    def forward(self, x: Tensor, position_ids: Optional[torch.LongTensor]):
-        inv_freq_expanded = self.inv_freq[None, :, None].expand(position_ids.shape[1], -1, 1)  # seq_len
-        position_ids_expanded = position_ids[:, None, :].float().transpose(0, 2)  # shape correction
-        freqs = (inv_freq_expanded @ position_ids_expanded).transpose(1, 2)
-        emb = torch.cat((freqs, freqs), dim=-1)
-        cos = emb.cos()
-        sin = emb.sin()
-        return cos.to(dtype=x.dtype), sin.to(dtype=x.dtype)
+    def forward(self, x: torch.Tensor, position_ids: Optional[torch.LongTensor]):
+        batch_size, seq_length, num_heads, inner_dim = x.shape
+        dtype = x.dtype
+        x = x.view(batch_size, seq_length, num_heads, inner_dim // 2, 2)
+        complex_x = torch.view_as_complex(x.float())
 
-    def rotate_half(self, x: Tensor) -> Tensor:
-        x1 = x[..., : x.shape[-1] // 2]
-        x2 = x[..., x.shape[-1] // 2 :]
-        return torch.cat((-x2, x1), dim=-1)
+        if position_ids is None:
+            freqs_cis = self.freqs_cis[:seq_length]
+        else:
+            freqs_cis = self.freqs_cis[position_ids]
 
-    def apply_rotary_pos_emb(self, q, k, cos, sin, unsqueeze_dim=2):
-        cos = cos.unsqueeze(unsqueeze_dim)  # Add an extra dimension
-        sin = sin.unsqueeze(unsqueeze_dim)
-        
-        # Expand along the batch_size and n_heads dimensions
-        cos = cos.expand(q.shape[0], q.shape[1], q.shape[2], -1)
-        sin = sin.expand(q.shape[0], q.shape[1], q.shape[2], -1)
-        
-        q_embed = (q * cos) + (self.rotate_half(q) * sin)
-        k_embed = (k * cos) + (self.rotate_half(k) * sin)
-        return q_embed, k_embed
+        complex_freqs = torch.view_as_complex(freqs_cis)
+        x_out = torch.view_as_real(complex_x * complex_freqs).view(batch_size, seq_length, num_heads, inner_dim)
+        return x_out.type(dtype)
+
+class CoreAttention(nn.Module):
+    def __init__(self, config):
+        super().__init__()
+        assert config.hidden_size % config.num_attention_heads == 0, "Hidden size must be divisible by number of attention heads."
+        self.d_qk = config.hidden_size // config.num_attention_heads
+        self.d_v = config.hidden_size // config.num_attention_heads
+        #self.is_using_mup = config.is_using_mup
+
+    def forward(self, query_states, key_states, value_states, q_sequence_mask, kv_sequence_mask):
+        cu_seqlens_q = torch.cumsum(q_sequence_mask.sum(-1, dtype=torch.int32), dim=0, dtype=torch.int32)
+        cu_seqlens_k = torch.cumsum(kv_sequence_mask.sum(-1, dtype=torch.int32), dim=0, dtype=torch.int32)
+        causal = q_sequence_mask.shape[1] != 1
+        #softmax_scale = 1 / query_states.shape[-1] if self.is_using_mup else None
+
+        attn_output = torch.nn.functional.scaled_dot_product_attention(
+            query_states, key_states, value_states, attn_mask=None, dropout_p=0.0
+        )
+        return attn_output
 
 class CausalSelfAttention(nn.Module):
     def __init__(self, config):
         super().__init__()
+        from flash_attn.layers.rotary import RotaryEmbedding as FlashRotaryEmbedding
         
-        self.n_heads = config.num_attention_heads
+        self.n_q_heads = config.num_attention_heads
+        self.n_kv_heads = config.num_key_value_heads if hasattr(config, 'num_key_value_heads') else config.num_attention_heads
+        self.n_repeats = config.num_attention_heads // self.n_kv_heads
+        self.is_gqa = config.num_attention_heads != self.n_kv_heads
         self.d_qk = config.hidden_size // config.num_attention_heads
+        self.d_v = config.hidden_size // config.num_attention_heads
         self.d_model = config.hidden_size
-        #self.is_using_mup = config.is_using_mup
 
-        self.qkv_proj = nn.Linear(self.d_model, 3 * self.n_heads * self.d_qk, bias=False)
-        self.rotary_embedding = LlamaRotaryEmbedding(dim=self.d_qk, end=config.max_position_embeddings, theta=config.rope_theta)
-        self.o_proj = nn.Linear(self.n_heads * self.d_qk, self.d_model, bias=False)
+        self.qkv_proj = nn.Linear(self.d_model, config.num_attention_heads * self.d_qk + 2 * self.n_kv_heads * self.d_qk, bias=False)
+        self.rotary_embedding = RotaryEmbedding(dim=self.d_qk, end=config.max_position_embeddings, theta=config.rope_theta)
+        self.flash_rotary_embedding = FlashRotaryEmbedding(dim=self.d_qk, base=config.rope_theta, interleaved=config.rope_interleaved)
+        self.o_proj = nn.Linear(config.num_attention_heads * self.d_qk, self.d_model, bias=False)
+        self.attention = CoreAttention(config)
 
-    def forward(self, hidden_states, sequence_mask, position_ids=None):
-        if position_ids is None:
-            position_ids = torch.arange(0, hidden_states.size(0), dtype=torch.long, device=hidden_states.device).unsqueeze(0)
+    def forward(self, hidden_states, sequence_mask):
         qkv_states = self.qkv_proj(hidden_states)
-        q_length, batch_size, _ = hidden_states.shape  # Add this line
-        
-        query_states, key_states, value_states = torch.chunk(qkv_states, 3, dim=-1)
-        query_states = query_states.view(q_length, batch_size, self.n_heads, self.d_qk).transpose(0, 1)
-        key_states = key_states.view(q_length, batch_size, self.n_heads, self.d_qk).transpose(0, 1)
-        value_states = value_states.view(q_length, batch_size, self.n_heads, self.d_qk).transpose(0, 1)
-        
-        cos, sin = self.rotary_embedding(value_states, position_ids)
-        query_states, key_states = self.rotary_embedding.apply_rotary_pos_emb(query_states, key_states, cos, sin)
+        q_length, batch_size, _ = qkv_states.shape
 
-        attn_scores = torch.matmul(query_states, key_states.transpose(-2, -1)) / (self.d_qk ** 0.5)
-        #print(attn_scores.shape)
-        #print(sequence_mask.shape)
-        #attn_scores = attn_scores.masked_fill(sequence_mask[:, None, None, :] == 0, float('-inf'))
-        attn_scores = attn_scores.permute(1, 2, 3, 0)  # (8, 8, 8, 256)
-        attn_scores = attn_scores.masked_fill(sequence_mask[:, None, None, :].expand(attn_scores.shape) == 0, float('-inf'))
-        attn_scores = attn_scores.permute(3, 0, 1, 2)  # Restore original shape
+        if self.is_gqa:
+            query_states, key_states, value_states = torch.split(
+                qkv_states,
+                [self.n_q_heads * self.d_qk, self.n_kv_heads * self.d_qk, self.n_kv_heads * self.d_qk],
+                dim=-1,
+            )
+        else:
+            query_states, key_states, value_states = qkv_states.view(q_length, batch_size, 3, self.n_q_heads, self.d_qk).permute(2, 1, 0, 3, 4).contiguous()
 
+        query_states, key_value_states = self.flash_rotary_embedding(query_states, kv=torch.stack([key_states, value_states], dim=2))
+        key_states, value_states = torch.chunk(key_value_states, 2, dim=2)
 
-        attn_probs = torch.nn.functional.softmax(attn_scores, dim=-1)
-        attention_output = torch.matmul(attn_probs, value_states)
+        attention_output = self.attention(
+            query_states=query_states.view(batch_size * q_length, self.n_q_heads, self.d_qk),
+            key_states=key_states.view(batch_size * q_length, self.n_kv_heads, self.d_qk),
+            value_states=value_states.view(batch_size * q_length, self.n_kv_heads, self.d_v),
+            q_sequence_mask=sequence_mask,
+            kv_sequence_mask=sequence_mask,
+        )
 
-        attention_output = attention_output.transpose(0, 1).contiguous().view(q_length, batch_size, self.n_heads * self.d_qk)
+        attention_output = attention_output.contiguous().view(batch_size, q_length, self.n_q_heads * self.d_v).transpose(0, 1)
         output = self.o_proj(attention_output)
 
         return {"hidden_states": output, "sequence_mask": sequence_mask}
@@ -131,6 +150,7 @@ class ColumnLinear(nn.Linear):
         super().__init__(in_features, out_features, bias, device, dtype)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        #x = x.detach()  # Detach from computation graph
         return nn.functional.linear(x, self.weight, self.bias)
 
 
@@ -139,6 +159,7 @@ class RowLinear(nn.Linear):
         super().__init__(in_features, out_features, bias, device, dtype)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        #x = x.detach()  # Detach from computation graph
         return nn.functional.linear(x, self.weight, self.bias)
 
 class GELUActivation(nn.Module):
@@ -190,35 +211,84 @@ class LlamaDecoderLayer(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.input_layernorm = TritonRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
-        self.self_attn = CausalSelfAttention(config)
+        self.attn = CausalSelfAttention(config)
         self.post_attention_layernorm = TritonRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
-        self.MLP = MLP(config)
+        self.mlp = MLP(config)
 
-    def forward(self, hidden_states, attention_mask, position_ids=None):
-        normed_hidden_states = self.input_layernorm(hidden_states)
-        attn_output = self.self_attn(normed_hidden_states, attention_mask, position_ids)["hidden_states"]
-        hidden_states = hidden_states + attn_output
+    def _core_forward(
+        self,
+        hidden_states: Union[torch.Tensor, TensorPointer],
+        sequence_mask: Union[torch.Tensor, TensorPointer],
+    ) -> List[Union[torch.Tensor, TensorPointer]]:
+        residual = hidden_states
+        hidden_states = self.input_layernorm(hidden_states)
+
+        output = self.attn(hidden_states=hidden_states, sequence_mask=sequence_mask)
+        hidden_states = output["hidden_states"]
+        hidden_states = hidden_states + residual
+
+        residual = hidden_states
         hidden_states = self.post_attention_layernorm(hidden_states)
-        mlp_output = self.MLP(hidden_states)["hidden_states"]
-        hidden_states = hidden_states + mlp_output
-        return hidden_states
+        hidden_states = self.mlp(hidden_states=hidden_states)["hidden_states"]
+        hidden_states = hidden_states + residual
+
+        return hidden_states, output["sequence_mask"]
+
+    def forward(
+        self,
+        hidden_states: Union[torch.Tensor, TensorPointer],
+        sequence_mask: Union[torch.Tensor, TensorPointer],
+    ) -> Dict[str, Union[torch.Tensor, TensorPointer]]:
+
+
+        hidden_states, sequence_mask = self._core_forward(hidden_states, sequence_mask)
+
+        return {
+            "hidden_states": hidden_states,
+            "sequence_mask": sequence_mask,
+        }
 
 class LlamaModel(nn.Module):
     def __init__(self, config):
         super().__init__()
         self.embed_tokens = nn.Embedding(config.vocab_size, config.hidden_size)
+        #layer_idx = config.num_layers
         self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_layers)])
         self.final_layer_norm = TritonRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
         self.lm_head = ColumnLinear(config.hidden_size, config.vocab_size, bias=False)
-        self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_layers)])
+        self.cast_to_fp32 = lambda: lambda x: x.float()
 
-    def forward(self, input_ids, attention_mask=None, position_ids=None):
+    def forward(
+        self,
+        input_ids: Union[torch.Tensor, TensorPointer],  # [batch_size, seq_length]
+        input_mask: Union[torch.Tensor, TensorPointer],  # [batch_size, seq_length]
+    ):
+        return self.forward_with_hidden_states(input_ids=input_ids, input_mask=input_mask)[0]
+
+    def forward_with_hidden_states(
+        self,
+        input_ids: Union[torch.Tensor, TensorPointer],  # [batch_size, seq_length]
+        input_mask: Union[torch.Tensor, TensorPointer],  # [batch_size, seq_length]
+    ):
+        # Format input in `[seq_length, batch_size]` to support high TP with low batch_size
+        input_ids = input_ids.transpose(0, 1)
         hidden_states = self.embed_tokens(input_ids)
-        for layer in self.layers:
-            hidden_states = layer(hidden_states, attention_mask, position_ids)
-        hidden_states = self.final_layer_norm(hidden_states)
-        logits = self.lm_head(hidden_states)
-        return logits
+
+        hidden_encoder_states = {
+            "hidden_states": hidden_states,
+            "sequence_mask": input_mask,
+        }
+
+        for encoder_block in self.layers:
+            hidden_encoder_states = encoder_block(**hidden_encoder_states)
+
+        hidden_encoder_states["hidden_states"] = self.final_layer_norm(hidden_encoder_states["hidden_states"])
+
+        sharded_logits = self.lm_head(x=hidden_encoder_states["hidden_states"])
+
+        fp32_sharded_logits = sharded_logits.float()
+
+        return fp32_sharded_logits, hidden_states
 
 class CrossEntropyLossFunction(torch.autograd.Function):
     @staticmethod
