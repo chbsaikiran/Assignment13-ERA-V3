@@ -70,13 +70,14 @@ class LlamaRotaryEmbedding(nn.Module):
         x2 = x[..., x.shape[-1] // 2 :]
         return torch.cat((-x2, x1), dim=-1)
 
-    def apply_rotary_pos_emb(self, q: Tensor, k: Tensor, cos: Tensor, sin: Tensor, unsqueeze_dim: int = 2):
-        cos = cos.unsqueeze(1)  # (batch_size, 1, seq_len, d_qk) -> (1, seq_len, d_qk)
-        sin = sin.unsqueeze(1)
+    def apply_rotary_pos_emb(self, q, k, cos, sin, unsqueeze_dim=2):
+        cos = cos.unsqueeze(unsqueeze_dim)  # Add an extra dimension
+        sin = sin.unsqueeze(unsqueeze_dim)
         
-        # Broadcast by expanding across batch_size and n_heads
-        cos = cos[:q.shape[0], :, :, :]  # Slice cos to match q.shape
-        sin = sin[:q.shape[0], :, :, :]
+        # Expand along the batch_size and n_heads dimensions
+        cos = cos.expand(q.shape[0], q.shape[1], q.shape[2], -1)
+        sin = sin.expand(q.shape[0], q.shape[1], q.shape[2], -1)
+        
         q_embed = (q * cos) + (self.rotate_half(q) * sin)
         k_embed = (k * cos) + (self.rotate_half(k) * sin)
         return q_embed, k_embed
@@ -95,6 +96,8 @@ class CausalSelfAttention(nn.Module):
         self.o_proj = nn.Linear(self.n_heads * self.d_qk, self.d_model, bias=False)
 
     def forward(self, hidden_states, sequence_mask, position_ids=None):
+        if position_ids is None:
+            position_ids = torch.arange(0, hidden_states.size(0), dtype=torch.long, device=hidden_states.device).unsqueeze(0)
         qkv_states = self.qkv_proj(hidden_states)
         q_length, batch_size, _ = hidden_states.shape  # Add this line
         
@@ -159,14 +162,23 @@ class GELUActivation(nn.Module):
     def forward(self, input: Tensor) -> Tensor:
         return self.act(input)
 
+class GLUActivation(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.act = nn.functional.silu
+
+    def forward(self, merged_states: torch.Tensor):
+        gate_states, up_states = torch.split(merged_states, merged_states.shape[-1] // 2, dim=-1)
+        return self.act(gate_states) * up_states
+
 
 class MLP(nn.Module):
     def __init__(self, config):
         super().__init__()
 
-        self.gate_up_proj = ColumnLinear(config.hidden_size, config.intermediate_size, bias=False)
+        self.gate_up_proj = ColumnLinear(config.hidden_size, 2*config.intermediate_size, bias=False)
         self.down_proj = RowLinear(config.intermediate_size, config.hidden_size, bias=False)
-        self.split_silu_mul = GELUActivation(config.hidden_act)
+        self.split_silu_mul = GLUActivation()
 
     def forward(self, hidden_states):
         merged_states = self.gate_up_proj(hidden_states)
@@ -198,6 +210,7 @@ class LlamaModel(nn.Module):
         self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_layers)])
         self.final_layer_norm = TritonRMSNorm(config.hidden_size, eps=config.rms_norm_eps)
         self.lm_head = ColumnLinear(config.hidden_size, config.vocab_size, bias=False)
+        self.layers = nn.ModuleList([LlamaDecoderLayer(config) for _ in range(config.num_layers)])
 
     def forward(self, input_ids, attention_mask=None, position_ids=None):
         hidden_states = self.embed_tokens(input_ids)
